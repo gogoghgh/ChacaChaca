@@ -56,6 +56,153 @@
   </style>
     
     <!-- 메뉴바 css  -->
+    
+    
+        <!-- 		//////////////레이어 팝업창////////////// -->
+<style type="text/css">
+#popup_layer {
+	position: fixed;
+	top: 0;
+	left: 0;
+ 	z-index: 10000;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 25, 0, 0.1);
+}
+/*팝업 박스*/
+/* 위치 이동 */
+.popup_box {
+	position: relative;
+	top: 40%;
+	left: 50%;
+	width: 380px;
+	transform: translate(-30%, -30%);
+	z-index: 1002;
+	box-sizing: border-box;
+	background: white;
+  	border: 0.05px solid black; 
+}
+/*컨텐츠 영역*/
+.popup_box .popup_cont {
+	padding: 30px;
+ 	line-height: 1.8rem;
+	font-size: 17px;
+	word-break: break-word;
+}
+/* 제목 */
+.popup_box .popup_cont span {
+	padding-top: 10px;
+	text-align: center;
+	font-size: 22px;
+	color: black;
+ 	margin: 0;
+/* 	margin-bottom: 20px; */
+}
+
+/*버튼영역*/
+.popup_box .popup_btn {
+	font-size: 17px;
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	height: 50px;
+	background: white;
+	word-break: break-word;
+}
+
+.popup_box .popup_btn a {
+	position: relative;
+	display: table-cell;
+	height: 65px;
+	color: white;
+	font-size: 19px;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	background: #94B49F;
+}
+
+.popup_box .popup_btn a:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 26px;
+	right: 29px;
+	width: 1px;
+	height: 21px;
+	background: white;
+	-moz-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.popup_box .popup_btn a:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 26px;
+	right: 29px;
+	width: 1px;
+	height: 21px;
+	background: white;
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.popup_box .popup_btn a.close_day {
+	font-size: 20px;
+	font-weight: bold;
+	background: #FEF9E8;
+	color: black;
+}
+
+.popup_box .popup_btn a.close_day:before, .popup_box .popup_btn a.close_day:after
+	{
+	display: none;
+}
+/*오버레이 뒷배경*/
+.popup_overlay {
+	position: fixed;
+	top: 0px;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 1001;;
+	background: rgba(0, 0, 0, 0.2);
+}
+</style>
+
+<script type="text/javascript">
+
+$(function(){
+	$(".popup_box").draggable({containment:'parent', scroll:false}); // 레이어 팝업 창 드래그 가능
+	//{containment:'parent', scroll:false} 화면 영역 밖으로 드래그 안됌.
+                
+	if(document.cookie.indexOf("popToday=close") < 0 ){      // 쿠키 저장여부 체크
+		document.getElementById("popup_layer").style.display = "block";
+		}else {
+		document.getElementById("popup_layer").style.display = "none"; 
+		}
+	});
+             
+             
+function closeToday() { 
+	setCookie( "popToday", "close" , 1 ); 
+	$("#popup_layer" ).css("display", "none");
+	document.getElementById("popup_layer").style.display = "none";
+}
+function closePop() { 
+	document.getElementById("popup_layer").style.display = "none";
+}
+</script>
+
+    <!-- 		//////////////레이어 팝업창////////////// -->
+    
   </head>
   <body>
     
@@ -63,39 +210,18 @@
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.html">CHACA<span>CHACA</span></a>
-	      <%
-		// 세션 영역에 있는 로그인 아이디 정보를 가져오기
-		String id = (String)session.getAttribute("loginID");
-	
-		if(id == null) {
-			%>
-			<a class="navbar-brand" href="./Join.bo">회원가입</a>
-			<a class="navbar-brand" href="./Login.bo" id="login">로그인</a>
-			<%
-		} else {
-			%>
-			<a class="navbar-brand" href="./Logout.bo" id="logout">로그아웃</a>
-			
-			<%
-			if(id.equals("admin")) {
-				%>
-				<a class="navbar-brand" href="./Admin.bo" id="admin">관리자페이지</a>
-				<%				
-			}
-		}
-		%>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="./Main.bo" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="./Information.bo" class="nav-link">이용안내</a></li>
-	          <li class="nav-item"><a href="./Service.bo" class="nav-link">요금안내</a></li>
-	          <li class="nav-item"><a href="./Reservation.bo" class="nav-link">예약하기</a></li>
-	          <li class="nav-item active"><a href="./BoardWrite.bo" class="nav-link">고객센터</a></li>
-	          <li class="nav-item"><a href="./UserInfo.bo" class="nav-link">마이페이지</a></li>
+	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="info.html" class="nav-link">이용안내</a></li>
+	          <li class="nav-item"><a href="services.html" class="nav-link">요금안내</a></li>
+	          <li class="nav-item"><a href="pricing.html" class="nav-link">예약하기</a></li>
+	          <li class="nav-item active"><a href="review.jsp" class="nav-link">고객센터</a></li>
+	          <li class="nav-item"><a href="joinUpdate.html" class="nav-link">마이페이지</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -133,8 +259,8 @@
 
 			<nav id="nav">
 				<ul>
-					<li><a href="./BoardList.bo" onclick="location.href='review.jsp'">이용후기</a></li>
-					<li><a href="./ContactWrite.bo" onclick="location.href='contact.html'">문의하기</a></li>
+					<li><a href="./BoardList.bo" >이용후기</a></li>
+					<li><a href="./ContactList.bo">문의하기</a></li>
 				</ul>
 			</nav>
 
@@ -147,6 +273,32 @@
 						<br> <br>
 						<hr>
 
+<!-- 		//////////////레이어 팝업창 ////////////// -->
+
+<div id="popup_layer">
+  <div class="popup_box">
+      <!--팝업 컨텐츠 영역-->
+      <div class="popup_cont">
+          <span>📢  ChacaChaca부산점 오픈 이벤트</span><br><hr>
+          <p>
+          신규 가입 시, 현금처럼 사용 가능한<br> 
+          5000포인트를 드립니다! <br> <br>
+          이벤트 기간: 2022.12.31까지 <br>
+          주의사항: 1인 1회 한정 <br>
+          	💖 많이 많이 가입해주세요 💖
+          </p>
+      </div>
+        <div id="check" style="padding-left: 30px;" ><input type="checkbox" name="chkbox" value="checkbox" id='chkbox' >
+        <label for="chkbox"  style="padding-bottom: 10px;"><a id="chk_today" href="javascript:closeToday();" class="close_day">&nbsp; 오늘 하루 동안 보지 않기</a></label>
+        </div>
+      <div class="popup_btn">
+          <a href="javascript:closePop();">닫&nbsp; &nbsp;기</a> 
+      </div>
+  </div>
+</div>
+<!-- 		//////////////레이어 팝업창////////////// -->
+		
+		
 			<div class="row">
 				<div class="col-md-12 pills">
 					<div class="bd-example bd-example-tabs">
@@ -158,13 +310,14 @@
 								<h3 class="head">최근 작성된 이용후기</h3>
 								
 								
-								<c:forEach var="dto" items="${requestScope.boardList }">
+								<c:forEach var="dto" items="${requestScope.reviewList }" varStatus="status">
 								<br>
 								<div class="review d-flex" style="width: 95%;">
 									<div class="user-img" style="background-image: url(images/Chacalogo.jpg)"></div>
 									<div class="desc">
 										<h4>
-											<span class="text-left">bno: ${dto.bno } / ${dto.name }</span> 
+<%-- 											<span class="text-left">bno: ${dto.bno } / ${dto.name }</span>  --%>
+											<span class="text-left">작성자 : ${dto.name }</span> 
 											<span class="text-right">${dto.date }</span>
 										</h4>
 										
@@ -217,10 +370,20 @@
 											        color: rgba(0, 0, 0, 0.1); } -->
 										
 										
-											<span class="text-right"><a href="./BoardContent.bo?bno=${dto.bno }&pageNum=${requestScope.pageNum}"> 상세보기</a></span>
-<!-- 										<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span> -->
-										</p>
-										
+												<span class="text-right">
+														<span class="icon-chat" style="margin-right: 20px">
+														<a href="./ReviewContent.bo?bno=${dto.bno }&pageNum=${requestScope.pageNum}">
+														 <!-- 댓글 개수 -->
+															${cmtList[status.index] } </a>
+														</span> 
+														<a href="./ReviewContent.bo?bno=${dto.bno }&pageNum=${requestScope.pageNum}"> 상세보기 </a>
+												</span>
+												
+												 <!-- 댓글 표시 아이콘 -->
+												 <!-- <span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span> -->
+												 
+									</p>
+												 
 										<p> ${dto.content } </p>
 										
 									</div>
@@ -242,16 +405,16 @@
 												<c:if test="${cnt != 0 }">
 													<ul>
 														<li><c:if test="${startPage > pageBlock }"> 
-																<a href="./BoardList.bo?pageNum=${startPage-pageBlock}">&lt;</a>
+																<a href="./ReviewList.bo?pageNum=${startPage-pageBlock}">&lt;</a>
 															</c:if></li>
 
 														<li class=""><c:forEach var="i" begin="${startPage }"
 																end="${endPage }" step="1">
-																<a href="./BoardList.bo?pageNum=${i }">${i }</a>
+																<a href="./ReviewList.bo?pageNum=${i }">${i }</a>
 															</c:forEach></li>
 
 														<li><c:if test="${endPage < pageCount }">
-																<a href="./BoardList.bo?pageNum=${startPage+pageBlock }">&gt;</a>
+																<a href="./ReviewList.bo?pageNum=${startPage+pageBlock }">&gt;</a>
 															</c:if></li>
 													</ul>
 												</c:if>
@@ -265,7 +428,7 @@
 							
 						<br>
 						<div style="padding-left: 900px;">	
-						<input type="button" value="이용후기 작성" style="width: 120%;"  onclick="location.href='reviewIndex.jsp'">	
+						<input type="button" value="이용후기 작성" style="width: 120%;"  onclick="location.href='./ReviewWrite.bo'">	
 						</div>
 							
 					</div> <!-- class="row" -->

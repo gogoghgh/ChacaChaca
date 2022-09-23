@@ -13,7 +13,7 @@ public class ReviewUpdateProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("(from BoardUpdateProAction) M: execute() 메서드 호출됨");
+		System.out.println("(from ReviewUpdateProAction) M: execute() 메서드 호출됨");
 		
 		// 0. 한글 처리
 		request.setCharacterEncoding("UTF-8");
@@ -29,10 +29,10 @@ public class ReviewUpdateProAction implements Action {
 		dto.setRate(Integer.parseInt(request.getParameter("rate")));
 		dto.setContent(request.getParameter("content"));
 		
-		// 2. 수정할 데이터를 DB로 보내서 정보 수정하기 (6. updateBoard 메서드)
+		// 2. 수정할 데이터를 DB로 보내서 정보 수정하기 (6. updateReview 메서드)
 		ReviewDAO dao = new ReviewDAO();
 
-		int result = dao.updateBoard(dto);
+		int result = dao.updateReview(dto);
 		
 		// 3. result = -1 | 0 | 1 에 따른 페이지 이동
 		response.setContentType("text/html; charset=UTF-8"); 
@@ -58,7 +58,7 @@ public class ReviewUpdateProAction implements Action {
 		// result == 1 (정상 수정 완)
 		out.print("<script>");
 		out.print("alert('정보 수정 완🥰');");
-		out.print("location.href='./BoardList.bo?pageNum=" + pageNum + "';"); 
+		out.print("location.href='./ReviewList.bo?pageNum=" + pageNum + "';"); 
 		out.print("</script>");
 		out.close();
 		return null;

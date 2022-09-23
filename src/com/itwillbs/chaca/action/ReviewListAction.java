@@ -14,14 +14,14 @@ public class ReviewListAction implements Action {
 	
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("(from BoardListAction) M: execute 메서드를 호출하셨나요^^");
+		System.out.println("(from ReviewListAction) M: execute 메서드를 호출하셨나요^^");
 		
 		// DB 관련 정보 처리할거니까(DB review 테이블에 저장된 애들 select 해와서 목록으로~) 
 		// DAO 객체 생성
 		ReviewDAO dao = new ReviewDAO();
 		
-		// 게시판에 작성되어 있는 전체 글 개수(3. getBoardCount 호출) -> cnt 변수에 저장
-		int cnt = dao.getBoardCount();
+		// 게시판에 작성되어 있는 전체 글 개수(3. getReviewCount 호출) -> cnt 변수에 저장
+		int cnt = dao.getReviewCount();
 		
 		// 페이징 처리 -----------------------------------------------------------------------------
 		// 한 페이지에 보여줄 글의 개수 설정
@@ -52,8 +52,8 @@ public class ReviewListAction implements Action {
 		
 		// dao 메서드 중에서 게시판 글 정보 모두 한방에 가져오는~~ 게 아니라!! 
 		// 나눠서 가져오기 위한^^ 메서드(2-1) 호출
-		List<ReviewDTO> boardList = dao.getBoardList(startRow, pageSize);
-		System.out.println("(from BoardListAction) M: 게시판 글 정보 저장 완"); //????????
+		List<ReviewDTO> reviewList = dao.getReviewList(startRow, pageSize);
+		System.out.println("(from ReviewListAction) M: reviewList에 게시판 글 정보 저장 완");
 
 		
 		// 페이징 처리2 (하단 페이지 링크... 이전, 다음,, 1 2 3페이지ㅡ,,,,,) ----------------------------
@@ -76,25 +76,27 @@ public class ReviewListAction implements Action {
 			endPage = pageCount;
 		}
 		// 페이징 처리2 끝 ------------------------------------------------------------------------------ 
-	      // 댓글 개수
 
+		
+		// 댓글 개수 표시
 	      List<Integer> cmtList = new ArrayList<>();
 	      
-	      for(int i = 0; i < boardList.size(); i++){
-	         int bno = boardList.get(i).getBno();
-	         System.out.println(bno);
-	         System.out.println(dao.getCommentCount(bno));
+	      for(int i = 0; i < reviewList.size(); i++){
+	         int bno = reviewList.get(i).getBno();
+	         System.out.print("(from ReviewListAction) M: " + bno + "번 글의  ");
+	         System.out.println("댓글 개수: " + dao.getCommentCount(bno));
 	         cmtList.add(dao.getCommentCount(bno));
 	      }
 		
+	    // 댓글 리스트 cmtList.. request영역에 저장
+        request.setAttribute("cmtList", cmtList);
 		
 		// Model(지금 여기.. Action) -> view 페이지로 boardList 정보 전달을 위해, request 영역에 저장
-		request.setAttribute("boardList", boardList);
-		System.out.println("(from BoardListAction) M: BoardList 정보 request 영역에 저장 완");
+		request.setAttribute("reviewList", reviewList);
 		
-		// 댓글 리스트 cmtList.. request영역에 저장
-	    request.setAttribute("cmtList", cmtList);
-		
+	    System.out.println("(from ReviewListAction) M: reviewList, cmtList 정보 -> request 영역에 저장 완");
+
+	    
 		// + 페이징 처리 정보 전달을 위해 request 영역에 저장
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("cnt", cnt);
@@ -102,16 +104,16 @@ public class ReviewListAction implements Action {
 		request.setAttribute("pageBlock", pageBlock);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
-		System.out.println("(from BoardListAction) M: 페이징 처리 정보 request 영역에 저장 완");
+		System.out.println("(from ReviewListAction) M: 페이징 처리 정보 request 영역에 저장 완");
 		
 		
 		// 페이지 이동(화면 전환)하기 위해 ActionForward 객체 생성
 		ActionForward forward = new ActionForward();
-		forward.setPath("./review.jsp");
+
 		forward.setRedirect(false); // 화면만 바뀌는 forward 방식으로 갈거니까 false
 		
 		return forward;
 		
 	}// execute
 
-}// BoardListAction class
+}// ReviewListAction class

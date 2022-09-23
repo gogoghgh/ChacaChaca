@@ -14,7 +14,7 @@ public class ReviewDeleteProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
-		System.out.println("(from BoardUpdateProAction) M: execute() 메서드 호출됨");
+		System.out.println("(from ReviewUpdateProAction) M: execute() 메서드 호출됨");
 		
 		
 		request.setCharacterEncoding("UTF-8");
@@ -28,7 +28,7 @@ public class ReviewDeleteProAction implements Action {
 		dto.setBno(Integer.parseInt(request.getParameter("bno")));
 		dto.setPassword(request.getParameter("password"));
 		
-		int result = dao.deleteBoard(dto); 
+		int result = dao.deleteReview(dto); 
 
 		response.setContentType("text/html; charset=UTF-8"); 
 		PrintWriter out = response.getWriter(); 

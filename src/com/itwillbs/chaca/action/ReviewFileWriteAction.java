@@ -12,7 +12,7 @@ public class ReviewFileWriteAction implements Action {
 	
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("M : FileBoardWriteAction의 execute()실행");
+		System.out.println("M : ReviewFileWriteAction의 execute()실행");
 		
 //		int bno=Integer.parseInt(request.getParameter("bno"));
 //		String pageNum = request.getParameter("pageNum");
@@ -57,12 +57,12 @@ public class ReviewFileWriteAction implements Action {
 //		
 		//3. BoardDAO객체생성 -> insertBoard() 재사용
 		ReviewDAO dao = new ReviewDAO();
-		dao.boardWrite(dto);
+		dao.reviewWrite(dto);
 		//파일업로드 끝********************************
 		
 		//4. 페이지이동
 		ActionForward forward = new ActionForward();
-		forward.setPath("./BoardList.bo");
+		forward.setPath("./ReviewList.bo");
 		forward.setRedirect(true);
 		return forward;
 	}

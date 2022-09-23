@@ -95,39 +95,18 @@
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.html">CHACA<span>CHACA</span></a>
-	      <%
-		// 세션 영역에 있는 로그인 아이디 정보를 가져오기
-		String id = (String)session.getAttribute("loginID");
-	
-		if(id == null) {
-			%>
-			<a class="navbar-brand" href="./Join.bo">회원가입</a>
-			<a class="navbar-brand" href="./Login.bo" id="login">로그인</a>
-			<%
-		} else {
-			%>
-			<a class="navbar-brand" href="./Logout.bo" id="logout">로그아웃</a>
-			
-			<%
-			if(id.equals("admin")) {
-				%>
-				<a class="navbar-brand" href="./Admin.bo" id="admin">관리자페이지</a>
-				<%				
-			}
-		}
-		%>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="./Main.bo" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="./Information.bo" class="nav-link">이용안내</a></li>
-	          <li class="nav-item"><a href="./Service.bo" class="nav-link">요금안내</a></li>
-	          <li class="nav-item"><a href="./Reservation.bo" class="nav-link">예약하기</a></li>
-	          <li class="nav-item active"><a href="./BoardWrite.bo" class="nav-link">고객센터</a></li>
-	          <li class="nav-item"><a href="./UserInfo.bo" class="nav-link">마이페이지</a></li>
+	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="info.html" class="nav-link">이용안내</a></li>
+	          <li class="nav-item"><a href="services.html" class="nav-link">요금안내</a></li>
+	          <li class="nav-item"><a href="pricing.html" class="nav-link">예약하기</a></li>
+	          <li class="nav-item active"><a href="review.jsp" class="nav-link">고객센터</a></li>
+	          <li class="nav-item"><a href="joinUpdate.html" class="nav-link">마이페이지</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -165,8 +144,8 @@
 
 			<nav id="nav">
 				<ul>
-					<li><a href="./BoardList.bo" onclick="location.href='review.jsp'">이용후기</a></li>
-					<li><a href="./ContactWrite.bo" onclick="location.href='contact.html'">문의하기</a></li>
+					<li><a href="#" onclick="location.href='review.jsp'">이용후기</a></li>
+					<li><a href="#" onclick="location.href='contact.html'">문의하기</a></li>
 				</ul>
 			</nav>
 
@@ -185,10 +164,10 @@
 						<div class="col-md-30 ">
 							<fieldset>
 								<legend style="text-align: center; ">후기 수정하기</legend><br>
-								<form action="./BoardUpdatePro.bo?pageNum=${pageNum }" class="bg-light p-5 contact-form" method="post">
+								<form action="./FileBoardUpdateActionPro.bo?pageNum=${pageNum }" class="bg-light p-5 contact-form" method="post" enctype="multipart/form-data">
 										<input type="hidden" name="bno" value="${dto.bno }">  <!-- bno가 없었네!!! -->
 									<div class="form-group">
-										<span style="width: 80%;">아이디</span> 
+										<span style="width: 80%;">아이디 ${dto.bno } / ${requestScope.bno }</span> 
 										<input type="email" class="form-control" name="id" readonly value="${dto.id }" placeholder="아이디(이메일)" style="width:50%">
 									</div>
 									<div class="form-group">
@@ -203,6 +182,12 @@
 										<span style="width: 80%;">내용</span>
 										<textarea rows="10" cols="80" class="form-control" name="content" placeholder="내용입력">${dto.content }</textarea>
 									</div>
+									<div class="form-group">
+										<span style="width: 80%;">사진</span>
+										<input type="file" class="form-control" name="file" style="width:50%">${dto.file }
+										<input type="hidden" name="oldfile" value="${dto.file }">
+									</div>
+									
 									
 								<!-- ////////////////별점////////////// -->
 									<div class="form-group">
@@ -255,24 +240,6 @@
 								<!-- ///////////////별점/////////////// -->
 								
 								
-								
-								
-								
-								<!-- ////////////////별점////////////// -->
-<!-- 									<div class="form-group">
-										<span style="width: 60%;">별점</span> 
-			
-										<div class="star">
-											<span class="text-bold"></span>
-											<input type="radio" name="rate" value="5" id="rate1"><label for="rate1">★</label>
-											<input type="radio" name="rate" value="4" id="rate2"><label for="rate2">★</label>
-											<input type="radio" name="rate" value="3" id="rate3"><label for="rate3">★</label>
-											<input type="radio" name="rate" value="2" id="rate4"><label for="rate4">★</label>
-											<input type="radio" name="rate" value="1" id="rate5"><label for="rate5">★</label>
-										</div>
-										
-									</div> -->
-								<!-- ///////////////별점/////////////// -->
 							
 									<div class="form-group">
 											<input type="submit" value="제출하기" >

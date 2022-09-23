@@ -19,7 +19,7 @@ public class ReviewFileUpdateProAction implements Action{
 		//int bno=Integer.parseInt(request.getParameter("bno"));
 		String pageNum = request.getParameter("pageNum");
 		
-		String realpath = request.getRealPath("/upload"); //deprecated -> 실무에선 context에 있는 realpath를 사용함
+		String realpath = request.getRealPath("/upload"); //deprecated -> 실무에선 context에 있는 real path를 사용함
 		System.out.println("realPath "+realpath);
 //		String location = "C:\\Users\\ITWILL\\git\\Project1-ChacaChaca\\WebContent\\upload";
 //		System.out.println("location "+location);
@@ -55,7 +55,7 @@ public class ReviewFileUpdateProAction implements Action{
 				// 2. 수정할 데이터를 DB로 보내서 정보 수정하기 (6. updateBoard 메서드)
 				ReviewDAO dao = new ReviewDAO();
 
-				int result = dao.updateBoard(dto);
+				int result = dao.updateReview(dto);
 				
 				
 				// request에 bno, pageNum 넣기
@@ -88,7 +88,7 @@ public class ReviewFileUpdateProAction implements Action{
 				// result == 1 (정상 수정 완)
 				out.print("<script>");
 				out.print("alert('정보 수정 완🥰');");
-				out.print("location.href='./BoardList.bo?pageNum=" + pageNum + "';"); 
+				out.print("location.href='./ReviewList.bo?pageNum=" + pageNum + "';"); 
 				out.print("</script>");
 				out.close();
 				return null;

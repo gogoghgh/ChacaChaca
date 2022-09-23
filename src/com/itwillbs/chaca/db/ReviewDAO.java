@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 
-
 public class ReviewDAO {
 	// Data Access Object 데이터 처리 객체!!  DB 쓰는 작업들 여기서 다
 	
@@ -25,7 +24,7 @@ public class ReviewDAO {
 	
 	// 기본 생성자
 	public ReviewDAO(){
-		System.out.println("(from BoardDAO) DB 연결에 관한 모든 준비 완^^");
+		System.out.println("(from ReviewDAO) DB 연결에 관한 모든 준비 완^^");
 	}
 	
 	// getConnect --- DB 연결 메서드 (用 커넥션풀) 
@@ -50,7 +49,7 @@ public class ReviewDAO {
 			if(rs != null) rs.close();
 			if(pstmt != null) pstmt.close();
 			if(con != null) con.close();
-			System.out.println("(from BoardDAO_closeDB) 자원 해제 완 ㅂ2ㅂ2");
+			System.out.println("(from ReviewDAO_closeDB) 자원 해제 완 ㅂ2ㅂ2");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,9 +57,9 @@ public class ReviewDAO {
 	}
 	// closeDB() --- 자원 해제 메서드 끝
 	
-	// 1. boardWrite --- 글쓰기 메서드
-	public void boardWrite(ReviewDTO dto){
-		System.out.println("\n(from BoardDAO_1.boardWrite) C: boardWrite() 호출");
+	// 1. reviewWrite --- 글쓰기 메서드
+	public void reviewWrite(ReviewDTO dto){
+		System.out.println("\n(from ReviewDAO_1.reviewWrite) reviewWrite() 호출");
 		
 		int bno = 0;
 		
@@ -81,7 +80,7 @@ public class ReviewDAO {
 				bno = rs.getInt(1) + 1;
 			}
 			
-			System.out.println("(from BoardDAO_1.boardWrite) 글번호 bno: " + bno);
+			System.out.println("(from ReviewDAO_1.reviewWrite) 글번호 bno: " + bno);
 			
 			// 글 번호 계산 완 -> 다시 3단계~~ insert 하러~ + pstmt + ?
 			sql = "insert into review(bno, name, id, password, rate, content,"
@@ -106,7 +105,7 @@ public class ReviewDAO {
 			
 			// 4. sql 실행
 			pstmt.executeUpdate();
-			System.out.println("(from BoardDAO_1.boardWrite) 글 작성 완  bno: " + bno);
+			System.out.println("(from ReviewDAO_1.reviewWrite) 글 작성 완  bno: " + bno);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,14 +114,14 @@ public class ReviewDAO {
 		}
 		
 	}
-	// 1. boardWrite --- 글쓰기 메서드 끝
+	// 1. reviewWrite --- 글쓰기 메서드 끝
 	
 	
-	// 2. getBoardList() --- 글 목록 조회(all) 메서드
-	public List<ReviewDTO> getBoardList(){
-		System.out.println("\n(from BoardDAO_2.getBoardList) C: getBoardList() 호출");
+	// 2. getReviewList() --- 글 목록 조회(all) 메서드
+	public List<ReviewDTO> getReviewList(){
+		System.out.println("\n(from ReviewDAO_2.getReviewList) getReviewList() 호출");
 		
-		List<ReviewDTO> boardList = new ArrayList<ReviewDTO>();
+		List<ReviewDTO> reviewList = new ArrayList<ReviewDTO>();
 		
 		try {
 			// 1+2
@@ -152,10 +151,10 @@ public class ReviewDAO {
 				dto.setIp(rs.getString("ip"));
 				dto.setFile(rs.getString("file"));
 				
-				boardList.add(dto);
+				reviewList.add(dto);
 				
 			} // while
-			System.out.println("(from BoardDAO_2.getBoardList) C: List에 저장 완");
+			System.out.println("(from ReviewDAO_2.getReviewList) List에 저장 완");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -164,16 +163,16 @@ public class ReviewDAO {
 			// 6
 			closeDB();
 		}
-		return boardList;
+		return reviewList;
 	}
-	// 2. getBoardList() --- 글 목록 조회(all) 메서드 끝
+	// 2. getReviewList() --- 글 목록 조회(all) 메서드 끝
 	
 	
-	// 2-1. getBoardList(startRow, pageSize) 오버로딩 --- 글 목록 조회(all 아니고 내가 원하는 만큼만) 
-	public List<ReviewDTO> getBoardList(int startRow, int pageSize){
-		System.out.println("\n(from BoardDAO_2-1.getBoardList) C: getBoardList(startRow, pageSize) 호출");
+	// 2-1. getReviewList(startRow, pageSize) 오버로딩 --- 글 목록 조회(all 아니고 내가 원하는 만큼만) 
+	public List<ReviewDTO> getReviewList(int startRow, int pageSize){
+		System.out.println("\n(from ReviewDAO_2-1.getReviewList) getReviewList(startRow, pageSize) 호출");
 
-		List<ReviewDTO> boardList = new ArrayList<ReviewDTO>();
+		List<ReviewDTO> reviewList = new ArrayList<ReviewDTO>();
 		
 		try {
 			// 1+2
@@ -211,10 +210,10 @@ public class ReviewDAO {
 				dto.setIp(rs.getString("ip"));
 				dto.setFile(rs.getString("file"));
 				
-				boardList.add(dto);
+				reviewList.add(dto);
 				
 			} // while
-			System.out.println("(from BoardDAO_2-1.getBoardList) C: List에 저장 완");
+			System.out.println("(from ReviewDAO_2-1.getReviewList) List에 저장 완");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -223,14 +222,14 @@ public class ReviewDAO {
 			// 6
 			closeDB();
 		}
-		return boardList;
+		return reviewList;
 	}	
-	// 2-1. getBoardList(startRow, pageSize) 오버로딩 --- 글 목록 조회(all 아니고 내가 원하는 만큼만) 끝 
+	// 2-1. getReviewList(startRow, pageSize) 끝 
 	
 	
-	// 3. getBoardCount() --- 글 개수 조회(all) 
-	public int getBoardCount(){
-		System.out.println("\n(from BoardDAO_3.getBoardCount) C: getBoardCount() 호출");
+	// 3. getReviewCount() --- 글 개수 조회(all) 
+	public int getReviewCount(){
+		System.out.println("\n(from ReviewDAO_3.getReviewCount) getReviewCount() 호출");
 		int cnt = 0;
 		
 		try {
@@ -249,7 +248,7 @@ public class ReviewDAO {
 				cnt = rs.getInt(1); // 1번 컬럼(=count(*)) 값을 cnt에 저장쓰
 			}
 			
-			System.out.println("(from BoardDAO_3.getBoardCount) C: 글 개수는 총 " + cnt + "개^^");
+			System.out.println("(from ReviewDAO_3.getReviewCount) 글 개수는 총 " + cnt + "개^^");
 			
 		} catch (Exception e) { 
 			e.printStackTrace();
@@ -259,12 +258,12 @@ public class ReviewDAO {
 		
 		return cnt;
 	}
-	// 3. getBoardCount() --- 글 개수 조회(all) 끝
+	// 3. getReviewCount() --- 글 개수 조회(all) 끝
 	
 	
 	// 4. updateReadcount(bno) --- 글 조회수 1 증가 
 	public void updateReadcount(int bno){
-		System.out.println("(from BoardDAO_4.updateReadcount) C: updateReadcount(int bno) 호출 완");
+		System.out.println("(from ReviewDAO_4.updateReadcount) updateReadcount(int bno) 호출 완");
 		
 		try {
 			// 1+2.    + 6. 자원해제 미리
@@ -282,7 +281,7 @@ public class ReviewDAO {
 			// 4. sql 실행
 			pstmt.executeUpdate();
 			
-			System.out.println("(from BoardDAO_4.updateReadcount) C: 글번호 " + bno + " 조회수 +1 완");
+			System.out.println("(from ReviewDAO_4.updateReadcount) 글번호 " + bno + " 조회수 +1 완");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -295,9 +294,9 @@ public class ReviewDAO {
 	// 4. updateReadcount(bno) --- 글 조회수 1 증가 끝 
 	
 	
-	// 5. getBoard(bno) --- 특정 글 1개의 정보 조회 
-	public ReviewDTO getBoard(int bno){
-		System.out.println("(from BoardDAO_5.getBoard) C: getBoard(bno) 호출");
+	// 5. getReview(bno) --- 특정 글 1개의 정보 조회 
+	public ReviewDTO getReview(int bno){
+		System.out.println("(from ReviewDAO_5.getReview) getReview(bno) 호출");
 
 		ReviewDTO dto = null;
 		
@@ -335,7 +334,7 @@ public class ReviewDAO {
 				
 			}// if
 			
-			System.out.println("(from BoardDAO_5.getBoard) C: 게시글 " + bno + "번 정보 dto에 저장 완");
+			System.out.println("(from ReviewDAO_5.getReview) 게시글 " + bno + "번 정보 dto에 저장 완");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -345,11 +344,11 @@ public class ReviewDAO {
 		
 		return dto;
 	}
-	// 5. getBoard(bno) --- 특정 글 1개의 정보 조회 끝 
+	// 5. getReview(bno) --- 특정 글 1개의 정보 조회 끝 
 	
 	
-	// 6. updateBoard(dto) --- 글 정보 수정 메서드
-	public int updateBoard(ReviewDTO dto){
+	// 6. updateReview(dto) --- 글 정보 수정 메서드
+	public int updateReview(ReviewDTO dto){
 		int result = -1;
 		
 		try {
@@ -394,8 +393,8 @@ public class ReviewDAO {
 			} else {
 				result = -1;
 			}
-			System.out.println("(from BoardDAO_6.updateBoard) bno: " + dto.getBno() + "번 글 수정 완 result: " + result);
-			System.out.println("(from BoardDAO_6.updateBoard) 수정 내용: " + dto);
+			System.out.println("(from ReviewDAO_6.updateReview) bno: " + dto.getBno() + "번 글 수정 완 result: " + result);
+			System.out.println("(from ReviewDAO_6.updateReview) 수정 내용: " + dto);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -406,11 +405,11 @@ public class ReviewDAO {
 		
 		return result;
 		
-	} // 6. updateBoard(dto) --- 글 정보 수정 메서드 끝
+	} // 6. updateReview(dto) --- 글 정보 수정 메서드 끝
 	
 	
-	// 7. deleteBoard(dto) --- 특정 글 1개 삭제 메서드
-	public int deleteBoard(ReviewDTO dto) {
+	// 7. deleteReview(dto) --- 특정 글 1개 삭제 메서드
+	public int deleteReview(ReviewDTO dto) {
 		int result=-1;
 		
 		try {
@@ -426,17 +425,17 @@ public class ReviewDAO {
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, dto.getBno());
 					result = pstmt.executeUpdate();
-					System.out.println("글 삭제 성공");
+					System.out.println("(from ReviewDAO_7.deleteReview) 글 삭제 성공");
 				} else {
 					result = 0;
-					System.out.println("비번 오류");
+					System.out.println("(from ReviewDAO_7.deleteReview) 비번 오류");
 				}
 			} else {
 				result = -1;
-				System.out.println("select 오류");
+				System.out.println("(from ReviewDAO_7.deleteReview) select 오류");
 			}
-			System.out.println("(from BoardDAO_7.deleteBoard) bno: " + dto.getBno() + "번 글 삭제 완");
-			System.out.println("(from BoardDAO_7.deleteBoard) 삭제 내용: " + dto);	
+			System.out.println("(from ReviewDAO_7.deleteReview) bno: " + dto.getBno() + "번 글 삭제 완");
+			System.out.println("(from ReviewDAO_7.deleteReview) 삭제 내용: " + dto);	
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -444,12 +443,13 @@ public class ReviewDAO {
 		}
 		return result;
 	}
-	// 7. deleteBoard(dto) --- 특정 글 1개 삭제 메서드
+	// 7. deleteReview(dto) --- 특정 글 1개 삭제 메서드
 
+	
 	// 댓글 구현 //////////////////////////////////////////////////////////////
-	// 8. getOne(c_bno) 메서드  comment 테이블의 c_bno로 데이터 한 개 가져오기 
+	// 8. getOneComment(c_bno) 메서드  c_bno로 댓글 한 개 가져오기 
 	public ReviewCmtDTO getOneComment(int c_bno) {
-		System.out.println("(from BoardDAO_8.getOneComment) getOneComment 메서드 호출됨");
+		System.out.println("(from ReviewDAO_8.getOneComment) getOneComment 메서드 호출됨");
 		
 		ReviewCmtDTO cdto = new ReviewCmtDTO();
 		
@@ -458,7 +458,7 @@ public class ReviewDAO {
 			con = getConnect();
 			
 			// 3. sql & pstmt & ?
-			sql = "select * from board_comment where c_bno=?";
+			sql = "select * from review_comment where c_bno=?";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -469,7 +469,6 @@ public class ReviewDAO {
 			
 			// 5. rs에 담긴 데이터 처리
 			if (rs.next()){
-				
 				cdto.setC_bno(rs.getInt("c_bno"));
 				cdto.setBno(rs.getInt("bno"));
 				cdto.setName(rs.getString("name"));
@@ -484,19 +483,19 @@ public class ReviewDAO {
 		}
 		return cdto;
 	}
-	// 8. getOneComment(bno) 메서드  comment 테이블의 bno로 데이터 한 개 가져오기 끝
+	// 8. getOneComment(c_bno) 메서드 끝
 	
 	
-	// 8-1. updateComment
+	// 8-1. updateComment 댓글 수정 메서드
 	public void updateComment(ReviewCmtDTO cdto) {
-		System.out.println("(from BoardDAO_8-1.updateComment) updateComment 메서드 호출됨");
+		System.out.println("(from ReviewDAO_8-1.updateComment) updateComment 메서드 호출됨");
 		
 		try {
 			// 1+2.   +6
 			con = getConnect();
 			
 			// 3. sql & pstmt & ?
-			sql = "update board_comment "
+			sql = "update review_comment "
 					+ "set name=?, content=?, where c_bno=?";
 			
 			pstmt = con.prepareStatement(sql);
@@ -508,7 +507,7 @@ public class ReviewDAO {
 			// 4. sql 실행
 			pstmt.executeUpdate();
 			
-			System.out.println("(from BoardDAO_8-1.updateComment) 댓글 수정 완 " + cdto);
+			System.out.println("(from ReviewDAO_8-1.updateComment) 댓글 수정 완 " + cdto);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -519,16 +518,16 @@ public class ReviewDAO {
 	// 8-1. updateComment 끝
 	
 	
-	// 8-2. deleteComment
+	// 8-2. deleteComment 댓글 삭제 메서드
 	public void deleteComment(int c_bno) {
-		System.out.println("(from BoardDAO_8-2.deleteComment) deleteComment 메서드 호출됨");
+		System.out.println("(from ReviewDAO_8-2.deleteComment) deleteComment 메서드 호출됨");
 		
 		try {
 			// 1+2.   +6
 			con = getConnect();
 			
 			// 3. sql & pstmt & ?
-			sql = "delete from board_comment "
+			sql = "delete from review_comment "
 					+ "where c_bno=?";
 			
 			pstmt = con.prepareStatement(sql);
@@ -538,7 +537,7 @@ public class ReviewDAO {
 			// 4. sql 실행
 			pstmt.executeUpdate();
 			
-			System.out.println("(from BoardDAO_8-2.deleteComment) 댓글 삭제 완 c_bno:" + c_bno);
+			System.out.println("(from ReviewDAO_8-2.deleteComment) 댓글 삭제 완 c_bno:" + c_bno);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -549,16 +548,16 @@ public class ReviewDAO {
 	// 8-2. deleteComment 끝
 	
 	
-	// 8-3. insertComment
+	// 8-3. insertComment 댓글 작성 메서드
 	public void insertComment(ReviewCmtDTO cdto) {
-		System.out.println("(from BoardDAO_8-3.insertComment) insertComment 메서드 호출됨");
+		System.out.println("(from ReviewDAO_8-3.insertComment) insertComment 메서드 호출됨");
 		
 		try {
 			// 1+2.   +6
 			con = getConnect();
 			
 			// 3. sql & pstmt & ?
-			sql = "insert into board_comment (name, content, bno) "
+			sql = "insert into review_comment (name, content, bno) "
 					+ "values(?, ?, ?)";
 			
 			pstmt = con.prepareStatement(sql);
@@ -570,7 +569,7 @@ public class ReviewDAO {
 			// 4. sql 실행
 			pstmt.executeUpdate();
 			
-			System.out.println("(from BoardDAO_8-3.insertComment) 댓글 추가 완 " + cdto);
+			System.out.println("(from ReviewDAO_8-3.insertComment) 댓글 추가 완 " + cdto);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -590,7 +589,7 @@ public class ReviewDAO {
 			con = getConnect();
 			
 			// 3. sql & pstmt & ?
-			sql = "select count(*) from board_comment where bno=?"; // board Table의 bno에 속한 -> comment Table의 bno니까,,
+			sql = "select count(*) from review_comment where bno=?"; // board Table의 bno에 속한 -> comment Table의 bno니까,,
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, bno);
 			
@@ -608,7 +607,7 @@ public class ReviewDAO {
 			closeDB();
 		}
 		
-		System.out.println("(from BoardDAO_8-4.getCommentCount) C: 덧글 개수는 총 " + cnt + "개^^");
+		System.out.println("(from ReviewDAO_8-4.getCommentCount) C: 덧글 개수는 총 " + cnt + "개^^");
 		return cnt;
 		
 	}
@@ -617,7 +616,7 @@ public class ReviewDAO {
 	
 	// 8-5. getCommentList 한 게시물의 댓글 리스트 출력하는 메서드
 	public List<ReviewCmtDTO> getCommentList(int bno){
-		System.out.println("\n(from BoardDAO_8-5.getCommentList) C: getCommentList() 호출됨");
+		System.out.println("\n(from ReviewDAO_8-5.getCommentList) C: getCommentList() 호출됨");
 
 		List<ReviewCmtDTO> cmtList = new ArrayList<ReviewCmtDTO>();
 		
@@ -626,7 +625,7 @@ public class ReviewDAO {
 			con = getConnect();
 
 			// 3 sql & pstmt & ?
-			sql = "select * from board_comment where bno=? order by c_bno desc";
+			sql = "select * from review_comment where bno=? order by c_bno desc";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, bno);
 			
@@ -647,7 +646,7 @@ public class ReviewDAO {
 				cmtList.add(cdto);
 				
 			} // while
-			System.out.println("(from BoardDAO_8-5.getCommentList) List에 저장 완");
+			System.out.println("(from ReviewDAO_8-5.getCommentList) List에 저장 완");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

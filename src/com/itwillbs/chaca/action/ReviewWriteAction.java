@@ -11,7 +11,7 @@ public class ReviewWriteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("(from BoardWriteAction) M: execute() 호출 완");
+		System.out.println("(from ReviewWriteAction) M: execute() 호출 완");
 		// 1. 한글 처리
 		request.setCharacterEncoding("UTF-8");
 		
@@ -28,15 +28,15 @@ public class ReviewWriteAction implements Action {
 		dto.setFile(request.getParameter("file")); 
 		dto.setIp(request.getRemoteAddr()); // ip주소 추가
 
-		System.out.println("(from BoardWriteAction) M: " + dto);
+		System.out.println("(from ReviewWriteAction) M: " + dto);
 		
 		// 3. DB에 글 정보 저장 
 		ReviewDAO dao = new ReviewDAO();
-		dao.boardWrite(dto);
+		dao.reviewWrite(dto);
 		
 		// 4. 페이지 이동 정보 저장 + forward 리턴(어디로, 어떻게 갈건지 정해주기)
 		ActionForward forward = new ActionForward();
-		forward.setPath("./BoardList.bo");
+		forward.setPath("./ReviewList.bo");
 		forward.setRedirect(true);
 		
 		return forward;

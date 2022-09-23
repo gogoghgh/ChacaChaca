@@ -1,7 +1,11 @@
+<%@page import="com.itwillbs.chaca.db.ReviewCmtDTO"%>
+<%@page import="com.itwillbs.chaca.db.ReviewDAO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
   <head>
     <title>이용후기</title>
@@ -59,18 +63,46 @@
 <script type="text/javascript">
  	function openPopUp(bno) {
 //  		alert(bno);
- 		window.open("reviewDeleteForm.jsp?bno="+bno, "pwCheckForm", "width=450, height=250, top=150, left=200");
- 		
+ 		window.open("reviewPwCheck.jsp?bno="+bno, "pwCheckForm", "width=600, height=250, top=150, left=200");
  		
  	}
 </script>
 
 
-
-
 <!-- 팝업창 열기 -->
     
     <!-- 메뉴바 css  -->
+
+
+<!-- jquery & ajax  시작 -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+<script type="text/javascript">
+	// c_bno 받기.. 제발,,,, 
+
+/*  댓글 수정하기 ,, 나중에 해보자
+	$(document).ready(function(){
+		
+		$('.cmt-update').click(function(){
+// 			alert('정상 작동함^^');
+			$.ajax({
+				url:'./CommentUpdate.bo',
+				data:{c_bno:'${cdto.c_bno}'},
+				dataType:'json', // json 타입인가??????? yes
+				success: function(rData){
+					// 성공적으로 json 데이터(댓글 하나) 들고 오면
+					$('.cmt-update-content').html(
+							name + content);
+				}
+				
+			}); // ajax
+			
+		});// 수정하기 버턴 click
+		
+	});// jQuery ready
+ */
+	
+</script>
+<!-- jquery & ajax  끝 -->
   </head>
   <body>
     
@@ -78,39 +110,18 @@
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.html">CHACA<span>CHACA</span></a>
-	      <%
-		// 세션 영역에 있는 로그인 아이디 정보를 가져오기
-		String id = (String)session.getAttribute("loginID");
-	
-		if(id == null) {
-			%>
-			<a class="navbar-brand" href="./Join.bo">회원가입</a>
-			<a class="navbar-brand" href="./Login.bo" id="login">로그인</a>
-			<%
-		} else {
-			%>
-			<a class="navbar-brand" href="./Logout.bo" id="logout">로그아웃</a>
-			
-			<%
-			if(id.equals("admin")) {
-				%>
-				<a class="navbar-brand" href="./Admin.bo" id="admin">관리자페이지</a>
-				<%				
-			}
-		}
-		%>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="./Main.bo"" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="./Information.bo" class="nav-link">이용안내</a></li>
-	          <li class="nav-item"><a href="./Service.bo" class="nav-link">요금안내</a></li>
-	          <li class="nav-item"><a href="./Reservation.bo" class="nav-link">예약하기</a></li>
-	          <li class="nav-item active"><a href="./BoardWrite.bo" class="nav-link">고객센터</a></li>
-	          <li class="nav-item"><a href="./UserInfo.bo" class="nav-link">마이페이지</a></li>
+	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="info.html" class="nav-link">이용안내</a></li>
+	          <li class="nav-item"><a href="services.html" class="nav-link">요금안내</a></li>
+	          <li class="nav-item"><a href="pricing.html" class="nav-link">예약하기</a></li>
+	          <li class="nav-item active"><a href="review.jsp" class="nav-link">고객센터</a></li>
+	          <li class="nav-item"><a href="joinUpdate.html" class="nav-link">마이페이지</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -147,15 +158,15 @@
 			<!--좌측 메뉴바  -->
 			<nav id="nav">
 				<ul>
-					<li><a href="./BoardList.bo" onclick="location.href='review.jsp'">이용후기</a></li>
-					<li><a href="./ContactWrite.bo" onclick="location.href='contact.html'">문의하기</a></li>
+					<li><a href="./BoardList.bo">이용후기</a></li>
+					<li><a href="./ContentList.bo">문의하기</a></li>
 				</ul>
 			</nav>
 			<!--좌측 메뉴바 -->
 
 
 			<!-- ---------------------- 본문 -------------------------------- -->
-			<section class="ftco-section" style="padding-bottom: 0em;">
+			<section class="ftco-section" style="padding-bottom: 0em; ">
 		      <div class="container">
 		        <hr>
 			        <div class="row d-flex justify-content-center">
@@ -163,71 +174,138 @@
 			          	<div class="blog-entry justify-content-end mb-md-5">
 			              <div class="text px-md-5 pt-4">
 			              	<div class="meta mb-3">
-<%-- 			                  <div>글번호: ${dto.bno } &nbsp</div>  --%>
-			                  <div>작성자: ${dto.name } (${dto.id }) &nbsp</div>
-			                  <div>${dto.date }</div>
-			                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 0</a></div> <!-- 댓글 표시 아이콘 -->
+			              	
+			              	<table width="100%">
+			              	
+			                  <tr><td><div>글번호: ${dto.bno } &nbsp;</div></td> 
+			                  <td><div>작성자: ${dto.name } (${dto.id }) &nbsp;</div></td>
+			                  <td><div>${dto.date }</div></td>
 			                </div>
-			                <h3 class="heading mt-2">
+			                <td><h3 class="heading mt-2">
 				                <div class="star"> 
 									<c:choose>
 										<c:when test="${dto.rate eq 1 }">
-											<i class="ion-ios-star"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i>
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i>
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i>
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i>
 										</c:when>
 										<c:when test="${dto.rate eq 2 }">
-											<i class="ion-ios-star"></i> 
-											<i class="ion-ios-star"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i>
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i>
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i>
 										</c:when>
 										<c:when test="${dto.rate eq 3 }">
-											<i class="ion-ios-star"></i> 
-											<i class="ion-ios-star"></i> 
-											<i class="ion-ios-star"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i>
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i>
 										</c:when>
 										<c:when test="${dto.rate eq 4 }">
-											<i class="ion-ios-star"></i> 
-											<i class="ion-ios-star"></i> 
-											<i class="ion-ios-star"></i> 
-											<i class="ion-ios-star"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
+											<i class="ion-ios-star" style="color: #01d28e"></i> 
 											<i class="ion-ios-star" style="color: rgba(0, 0, 0, 0.1);"></i> 
 										</c:when>
 										<c:when test="${dto.rate eq 5}">
-											<i class="ion-ios-star"></i>
-											<i class="ion-ios-star"></i>
-											<i class="ion-ios-star"></i>
-											<i class="ion-ios-star"></i>
-											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star" style="color: #01d28e"></i>
+											<i class="ion-ios-star" style="color: #01d28e"></i>
+											<i class="ion-ios-star" style="color: #01d28e"></i>
+											<i class="ion-ios-star" style="color: #01d28e"></i>
+											<i class="ion-ios-star" style="color: #01d28e"></i>
 										</c:when>
 									</c:choose>
 								</div>
 			                </h3>
-			                <p>${dto.content }</p>
-			              	<a href="#" class="block-20 img" style="background-image: url('images/image_1.jpg');">${dto.file }</a>
-<!-- 			                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p> -->
+			                </td>
+			                </tr>
+			                <tr><td colspan="4" style="padding: 50px;"><p>${dto.content }</p></td></tr>
+			                </table>
+							<!--   첨부파일 코드 -->
+							<c:if test="${dto.file ne null }">
+							<img src="./upload/${dto.file }" width="80%" height="80%">			                
+			                <p><a href="./upload/${dto.file }" download>${dto.file }</a></p>
+			                </c:if>
+			                
+<!-- 			                <p><div class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p> -->
 			              	<br>
 			              	<!-- /////////로그인아이디가 글쓴이 아이디와 일치할 때 글수정/글삭제 가능///// -->
 <%-- 			              	<c:if test="${sessionScope.loginID eq dto.name }"> --%>
-			              	<input type="button" value="수정" onclick="location.href='./BoardUpdate.bo?bno=${dto.bno}&pageNum=${pageNum}';"> 
+			              	<input type="button" value="수정" onclick="location.href='./ReviewFileUpdate.bo?bno=${dto.bno}&pageNum=${pageNum}';"> 
 							<input type="button" value="삭제" onclick="openPopUp(${dto.bno})">
 <%-- 			              	</c:if> --%>
 			              	<!-- /////////로그인아이디가 글쓴이 아이디와 일치할 때 글수정/글삭제 가능///// -->
 							<input type="button" value="답글">
-							<input type="button" value="목록" onclick="location.href='./BoardList.bo?pageNum=${pageNum}';">
+							<input type="button" value="목록" onclick="location.href='./ReviewList.bo?pageNum=${pageNum}';">
 			              </div>
 			            </div>
 			          </div>
 		       	</div> <!-- class="row -->
 		      </div> <!-- class="container" -->
-		    </section>
+		      
+		      
+		      		      <!-- ----------------------- 댓글 리스트 구간 --------------------------------- -->
+				
+						<input type="hidden" name="c_bno" value="${cdto.c_bno }">
+			<section style="width: 40%; height: 40%">
+				<div class="pt-5 mt-5">
+					<h6 class="mb-5">댓글</h6>
+					<ul class="comment-list">
+						<c:forEach var="cdto" items="${cmtList }">
+							<li class="comment">
+								<div class="vcard bio">
+									<img src="./images/Chacalogo.jpg" alt="Image placeholder">
+								</div>
+								<div class="comment-body">
+									<h3>${cdto.name }</h3>
+									<div class="meta">
+										<fmt:formatDate value="${cdto.date }"
+											pattern="yyyy.MM.dd hh:mm" />
+									</div>
+									<p>${cdto.content }</p>
+									<!-- <p> <a href="#" class="reply">Reply</a> </p> -->
+								</div> 
+								<input type="button" value="수정" class="cmt-update"
+											<%-- onclick="location.href='./CommentUpdate.bo?c_bno=${cdto.c_bno}';" --%>>
+								<input type="button" value="삭제" onclick="location.href='#';">
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
 
+				<!-- ----------------------- 댓글 리스트 구간 끝^^ --------------------------------- -->
+				
+		      
+				<!-- ----------------------- 댓글 작성 구간^^ --------------------------------- -->
+
+				<div class="comment-form-wrap pt-5" style="width: 100%; ">
+					<h6 class="mb-5">댓글을 남겨주세요</h6>
+					<form action="./CommentWrite.bo" method="post" name="frm" class="p-5 bg-light" style="width: 240%;">
+								<input type="hidden" name="bno" value="${dto.bno }">  <!-- bno : 메인 글의 bno!! (BoardDTO의 bno!!!!) 여기가 중요 ★★★-->
+						<div class="form-group">
+							<label for="name">이름 </label> <input type="text"
+								class="form-control cmt-update-name" id="name" name="name">
+						</div>
+						<div class="form-group">
+							<label for="message">내용</label>
+							<textarea name="content" id="message" cols="7" rows="4" class="form-control cmt-update-content"></textarea>
+						</div>
+						<div class="btn btn-primary" >
+							<input type="submit" value="댓글 달기😘"
+								class="btn py-3 px-4 btn-primary" name="cmd" > <!-- cmd.. 의미가 있나 -->
+						</div>
+						
+					</form>
+				</div>
+				</section>
+				<!-- ----------------------- 댓글 작성 구간 끝^^ --------------------------------- -->
+		      
+		    </section>
 
 		</div>
 	</section>

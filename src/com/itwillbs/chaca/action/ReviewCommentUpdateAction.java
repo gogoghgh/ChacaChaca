@@ -21,7 +21,7 @@ public class ReviewCommentUpdateAction implements Action {
 		
 		// 넘어온 데이터 (c_bno) 저장
 		int c_bno = Integer.parseInt(request.getParameter("c_bno"));
-		System.out.println("c_bno: " + c_bno);
+		System.out.println("(from CommentUpdateAction) M: c_bno: " + c_bno);
 		
 		// DB 쓸거니까 dao 생성 
 		//  -> 댓글 하나 내용 보는 메서드 getOneComment(c_bno) 호출

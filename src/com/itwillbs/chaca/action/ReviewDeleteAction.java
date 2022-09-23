@@ -12,16 +12,16 @@ public class ReviewDeleteAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
-		System.out.println("(from BoardDeleteAction) M: execute 메서드 호출됨");
+		System.out.println("(from ReviewDeleteAction) M: execute 메서드 호출됨");
 		
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		String pageNum = request.getParameter("pageNum");
 		String password = request.getParameter("password");
 
 		ReviewDAO dao = new ReviewDAO();
-		ReviewDTO dto = dao.getBoard(bno);
+		ReviewDTO dto = dao.getReview(bno);
 		
-		System.out.println("(from BoardDleteAction) M: 삭제할 데이터" + dto);
+		System.out.println("(from ReviewDleteAction) M: 삭제할 데이터" + dto);
 
 		request.setAttribute("dto", dto);
 		request.setAttribute("pageNum", pageNum);

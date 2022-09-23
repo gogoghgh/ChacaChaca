@@ -231,24 +231,23 @@ public class ChacaFrontController extends HttpServlet{
 			
 			
 			// 리뷰 구간 시작-----------------------------------------------------------
-			else if(command.equals("/BoardWrite.bo")){
+			else if(command.equals("/ReviewWrite.bo")){
 				// 패턴1
-				System.out.println("(from BoardFrontController_doProcess) C: /BoardWrite.bo 주소 호출됨");
-				System.out.println("(from BoardFrontController_doProcess) C: DB 정보 필요 X -> view 페이지(writeForm.jsp)로 이동시킬거");
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewWrite.bo 주소 호출됨");
+				System.out.println("(from ChacaFrontController_doProcess) C: DB 정보 필요 X -> view 페이지(writeForm.jsp)로 이동시킬거");
 				
 				forward = new ActionForward();
 				forward.setPath("./review/reviewWriteForm.jsp");
 				forward.setRedirect(false); // forward 방식으로 이동
 				
-			}// if --- 패턴1 끝 --- /BoardWrite.bo
+			}// ReviewWrite.bo 끝
 
-			else if(command.equals("/BoardWriteAction.bo")){
+			else if(command.equals("/ReviewWriteAction.bo")){
 				// 패턴2
-				System.out.println("(from BoardFrontController_doProcess) C: /BoardWriteAction.bo 주소 호출됨");
-				System.out.println("(from BoardFrontController_doProcess) C: 패턴2= DB 정보 필요 O + 페이지 이동 O");
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewWriteAction.bo 주소 호출됨");
+				System.out.println("(from ChacaFrontController_doProcess) C: 패턴2= DB 정보 필요 O + 페이지 이동 O");
 				
 				action = new ReviewWriteAction(); 
-				// 上              下             upcasting
 				
 				try {
 					forward = action.execute(request, response); // execute 메서드 실행 결과 forward 갖고 오니까
@@ -256,18 +255,17 @@ public class ChacaFrontController extends HttpServlet{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}// else if  -- 패턴2 끝 -- /BoardWriteAction.bo
+			}// ReviewWriteAction.bo 끝
 			
-			else if(command.equals("/BoardList.bo")){
+			else if(command.equals("/ReviewList.bo")){
 				// 패턴3
-				System.out.println("(from BoardFrontController_doProcess) C: /BoardList.bo 주소 호출됨");
-				System.out.println("(from BoardFrontController_doProcess) C: 패턴3= DB 정보 필요 O, 페이지 이동 X, 기존 페이지에 출력은 O");
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewList.bo 주소 호출됨");
+				System.out.println("(from ChacaFrontController_doProcess) C: 패턴3= DB 정보 필요 O, 페이지 이동 X, 기존 페이지에 출력은 O");
 				
 				action = new ReviewListAction();
-				// 上              下             upcasting
 				
 				try {
-					System.out.println("(from BoardFrontController_doProcess) C: 해당 Model 객체 호출할 거");
+					System.out.println("(from ChacaFrontController_doProcess) C: 해당 Model 객체 호출할 거");
 					forward = action.execute(request, response);
 							// execute 메서드 리턴 타입이 ActionForward니까, AF 타입인 forward 변수로 받아주기
 					
@@ -275,28 +273,27 @@ public class ChacaFrontController extends HttpServlet{
 					e.printStackTrace();
 				}
 				
-			}// else if  -- 패턴3 끝 -- /BoardList.bo
+			}// ReviewList.bo 끝
 			
-			else if(command.equals("/BoardContent.bo")){
-				System.out.println("(from BoardFrontController_doProcess) C: /BoardContent.bo 호출");
-				System.out.println("(from BoardFrontController_doProcess) C: 패턴3= DB 정보 필요 O, 페이지 이동 X, 기존 페이지에 출력은 O");
+			else if(command.equals("/ReviewContent.bo")){
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewContent.bo 호출");
+				System.out.println("(from ChacaFrontController_doProcess) C: 패턴3= DB 정보 필요 O, 페이지 이동 X, 기존 페이지에 출력은 O");
 				
 				action = new ReviewContentAction();
-				// 上              下             upcasting
 				
 				try {
-					System.out.println("(from BoardFrontController_doProcess) C: 해당 Model 객체 호출할 거");
+					System.out.println("(from ChacaFrontController_doProcess) C: 해당 Model 객체 호출할 거");
 					forward = action.execute(request, response);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
-			}// else if --- 패턴3 끝 --- /BoardContent.bo 
+			}// ReviewContent.bo 끝
 			
-			else if(command.equals("/BoardUpdate.bo")){
-				System.out.println("(from BoardFrontController_doProcess) C: /BoardUpdate.bo 호출");
-				System.out.println("(from BoardFrontController_doProcess) C: DB 정보 필요 O, 해당 정보 view 페이지에 출력");
+			else if(command.equals("/ReviewUpdate.bo")){
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewUpdate.bo 호출");
+				System.out.println("(from ChacaFrontController_doProcess) C: DB 정보 필요 O, 해당 정보 view 페이지에 출력");
 				
 				action = new ReviewUpdateAction();
 				
@@ -307,11 +304,11 @@ public class ChacaFrontController extends HttpServlet{
 					e.printStackTrace();
 				}
 				
-			}// else if ---  /BoardUpdate.bo 
+			}// else if ---  /ReviewUpdate.bo 
 			
-			else if(command.equals("/BoardUpdatePro.bo")){
-				System.out.println("(from BoardFrontController_doProcess) C: /BoardUpdatePro.bo 호출");
-				System.out.println("(from BoardFrontController_doProcess) C: DB 사용 O, 페이지 이동 O");
+			else if(command.equals("/ReviewUpdatePro.bo")){
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewUpdatePro.bo 호출");
+				System.out.println("(from ChacaFrontController_doProcess) C: DB 사용 O, 페이지 이동 O");
 				
 				action = new ReviewUpdateProAction();
 				
@@ -322,11 +319,11 @@ public class ChacaFrontController extends HttpServlet{
 					e.printStackTrace();
 				}
 				
-			}// else if ---  /BoardUpdatePro.bo	
+			}// else if ---  /ReviewUpdatePro.bo	
 			
-			else if(command.equals("/BoardDelete.bo")){
-				System.out.println("(from BoardFrontController_doProcess) C: /BoardDelete.bo 호출");
-				System.out.println("(from BoardFrontController_doProcess) C: DB 사용 O, 해당 정보 view 페이지에 출력");
+			else if(command.equals("/ReviewDelete.bo")){
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewDelete.bo 호출");
+				System.out.println("(from ChacaFrontController_doProcess) C: DB 사용 O, 해당 정보 view 페이지에 출력");
 				
 				action = new ReviewDeleteAction();
 				try {
@@ -335,11 +332,11 @@ public class ChacaFrontController extends HttpServlet{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}// else if ---  /BoardDelete.bo	
+			}// else if ---  /ReviewDelete.bo	
 			
-			else if(command.equals("/BoardDeletePro.bo")){
-				System.out.println("(from BoardFrontController_doProcess) C: /BoardDeletePro.bo 호출");
-				System.out.println("(from BoardFrontController_doProcess) C: DB 사용 O, 페이지 이동 O");
+			else if(command.equals("/ReviewDeletePro.bo")){
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewDeletePro.bo 호출");
+				System.out.println("(from ChacaFrontController_doProcess) C: DB 사용 O, 페이지 이동 O");
 				
 				action = new ReviewDeleteProAction();
 				
@@ -349,22 +346,22 @@ public class ChacaFrontController extends HttpServlet{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}// else if ---  /BoardDeletePro.bo	
+			}// else if ---  /ReviewDeletePro.bo	
 			
-			else if(command.equals("/FileBoardWrite.bo")){
-				System.out.println("(from BoardFrontController_doProcess) C: /FileBoardWrite.bo 호출");
-				System.out.println("(from BoardFrontController_doProcess) C: DB 사용 X, 페이지 이동 O");
+			else if(command.equals("/ReviewFileWrite.bo")){
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewFileWrite.bo 호출");
+				System.out.println("(from ChacaFrontController_doProcess) C: DB 사용 X, 페이지 이동 O");
 				
 				
 				forward = new ActionForward();
 				forward.setPath("./reviewWriteForm.jsp");
 				forward.setRedirect(false); // forward 방식으로 이동
 
-			}// else if ---  /FileBoardWrite.bo	
+			}// else if ---  /ReviewFileWrite.bo	
 
-			else if(command.equals("/FileBoardWriteAction.bo")){
-				System.out.println("(from BoardFrontController_doProcess) C: /FileBoardWriteAction.bo 호출");
-				System.out.println("(from BoardFrontController_doProcess) C: DB 사용 O, 페이지 이동 O");
+			else if(command.equals("/ReviewFileWriteAction.bo")){
+				System.out.println("(from ChacaFrontController_doProcess) C: /ReviewFileWriteAction.bo 호출");
+				System.out.println("(from ChacaFrontController_doProcess) C: DB 사용 O, 페이지 이동 O");
 				
 				
 				action = new ReviewFileWriteAction();
@@ -376,13 +373,13 @@ public class ChacaFrontController extends HttpServlet{
 					e.printStackTrace();
 				}
 				
-			}// else if ---  /FileBoardWrite.bo	
+			}// else if ---  /ReviewFileWrite.bo	
 			
-			else if(command.equals("/FileBoardUpdate.bo")){
-				System.out.println(" C : /FileBoardUpdate.bo 호출 ");
+			else if(command.equals("/ReviewFileUpdate.bo")){
+				System.out.println(" C : /ReviewFileUpdate.bo 호출 ");
 				System.out.println(" C : DB작업 o, 페이지 이동");
 			
-				// FileBoardUpdateAction() 객체 생성
+				// ReviewFileUpdateAction() 객체 생성
 				action = new ReviewFileUpdateAction();
 				try {
 					forward = action.execute(request, response);
@@ -390,24 +387,24 @@ public class ChacaFrontController extends HttpServlet{
 					e.printStackTrace();
 				}
 				
-			}// else if ---  /FileBoardUpdate.bo	
+			}// else if ---  /ReviewFileUpdate.bo	
 				
-			else if(command.equals("/FileBoardUpdateActionPro.bo")){
-				System.out.println(" C : /FileBoardUpdateActionPro.bo 호출 ");
+			else if(command.equals("/ReviewFileUpdatePro.bo")){
+				System.out.println(" C : /ReviewFileUpdatePro.bo 호출 ");
 				System.out.println(" C : DB작업 o, 페이지 이동");
 				
-				// FileBoardUpdateActionPro() 객체 생성
+				// ReviewFileUpdateProAction() 객체 생성
 				action = new ReviewFileUpdateProAction();
 				try {
 					forward = action.execute(request, response);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}// else if ---  /FileBoardUpdate.bo	
+			}// else if ---  /ReviewFileUpdatePro.bo	
 			
 			// 댓글 구현 시작////////////////////////////////////////
 			else if (command.equals("/CommentWrite.bo")){
-				System.out.println("(from BoardFrontController_doProcess) C: /CommentWrite.bo 호출");
+				System.out.println("(from ChacaFrontController_doProcess) C: /CommentWrite.bo 호출");
 						
 				action = new ReviewCommentWriteAction();
 				try {
@@ -419,7 +416,7 @@ public class ChacaFrontController extends HttpServlet{
 			} // CommentWrite.bo 끝
 					
 			else if (command.equals("/CommentUpdate.bo")){
-				System.out.println("(from BoardFrontController_doProcess) C: /CommentUpdate.bo 호출");
+				System.out.println("(from ChacaFrontController_doProcess) C: /CommentUpdate.bo 호출");
 					
 				action = new ReviewCommentUpdateAction();
 				try {
@@ -513,7 +510,7 @@ public class ChacaFrontController extends HttpServlet{
 					e.printStackTrace();
 				}
 			} else if (command.equals("/ContactDelete.bo")) {
-				System.out.println("(from ContactFrontController_doProcess) C: /BoardDelete.bo 호출");
+				System.out.println("(from ContactFrontController_doProcess) C: /ReviewDelete.bo 호출");
 				System.out.println("(from ContactFrontController_doProcess) C: DB 사용 O, 해당 정보 view 페이지에 출력");
 
 				action = new ContactDeleteAction();
@@ -523,10 +520,10 @@ public class ChacaFrontController extends HttpServlet{
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} // else if --- /BoardDelete.bo
+			} // else if --- /ReviewDelete.bo
 
 			else if (command.equals("/ContactDeletePro.bo")) {
-				System.out.println("(from ContactFrontController_doProcess) C: /BoardDeletePro.bo 호출");
+				System.out.println("(from ContactFrontController_doProcess) C: /ReviewDeletePro.bo 호출");
 				System.out.println("(from ContactFrontController_doProcess) C: DB 사용 O, 페이지 이동 O");
 
 				action = new ContactDeleteProAction();

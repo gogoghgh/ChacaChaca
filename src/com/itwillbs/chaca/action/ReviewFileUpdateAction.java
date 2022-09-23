@@ -19,7 +19,7 @@ public class ReviewFileUpdateAction implements Action{
 		// BoardDAO 객체 생성
 		ReviewDAO dao = new ReviewDAO();
 		//메서드 호출
-		ReviewDTO dto=dao.getBoard(bno);
+		ReviewDTO dto = dao.getReview(bno);
 		// 데이터 저장 => 이동할정보 저장
 		request.setAttribute("dto", dto);
 		request.setAttribute("bno", bno);

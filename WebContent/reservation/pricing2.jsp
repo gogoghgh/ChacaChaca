@@ -19,120 +19,6 @@
 <link rel="stylesheet" href="css/flaticon.css">
 <link rel="stylesheet" href="css/icomoon.css">
 <link rel="stylesheet" href="css/style.css">
-
-<!-- 지도 아코디언 스타일 시작 ---------------------------------- -->
-<style type="text/css">
-.accordion {
-  background-color: #94B49F;
-  color: white;
-  cursor: pointer;
-  padding: 10px;
-  width: 270px;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: 0.4s;
-}
-
-.accordion.active, .accordion:hover {
-  background-color: #CEE5D0;
-  color: black;
-}
-
-.accordion.active{
-  background-color: #FCF8E8;
-  color: black;
-}
-
-.accordion:after {
-  content: '\002B';
-  color: #FCF8E8;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-}
-
-/*   - 표시 CSS였음...
- .active:after {
-  content: "\2212";
-} */
-
-.panel {
-  padding-left: 20px;
-  padding-bottom: 10px;
-  width: 300px;
-  font-size: 14px;
-  background-color: white;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
-
-</style>
-
-<!-- 버튼 -->
-<style type="text/css">
-#mapbutton {
- 	line-height:13px; 
-	-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	border-radius:18px;
-	text-align:left;
-	vertical-align:middle;
-	font-size:13px;
-	color:black;
-	width:40px;
-	height:15px;
-	padding:8px;
-	padding-right: 40px;
-	padding-bottom:20px;
-	background-color: #cccccc;
-	border-color: white;
-}
-
-#mapbutton:active {
-	position:relative;
-	top:4px
-}
-
-#mapbutton:hover {
-}
-</style>
-<!-- 버튼 -->
-
-
-    <!-- 대여 지점 지도 팝업창 js -->
-<script type="text/javascript">
- 	function openPopUp1() { window.open("./map/map1.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp2() { window.open("./map/map2.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp3() { window.open("./map/map3.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp4() { window.open("./map/map4.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp5() { window.open("./map/map5.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp6() { window.open("./map/map6.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp7() { window.open("./map/map7.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp8() { window.open("./map/map8.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp9() { window.open("./map/map9.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp10() { window.open("./map/map10.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp11() { window.open("./map/map11.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp12() { window.open("./map/map12.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp13() { window.open("./map/map13.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp14() { window.open("./map/map14.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp15() { window.open("./map/map15.jsp", "map1", "width=600, height=450, top=150, left=200"); }
- 	function openPopUp16() { window.open("./map/map16.jsp", "map1", "width=600, height=450, top=150, left=200"); }
-</script>
-    <!-- 대여 지점 지도 팝업창 js -->
-
-<!-- 대여 지점 목록 스크롤 -->
-   <style>
-      .accordionContainer {
-        width: 338px;
-        height: 200px;
-        overflow: auto;
-      }
-    </style>
-
-<!-- 대여 지점 목록 스크롤 -->
     
 <script type="text/javascript" src="jquery-3.6.0.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dfca5b3863564f021175c274a0079e2a"></script>
@@ -262,10 +148,10 @@
 <!-- -------------------------------------------- 경로 끝 -------------------------------------------- -->
 
 <!-- 소제목+본문 섹션 시작 -->
-    <section class="ftco-section" style="padding-top: 3em;">
+    <section class="ftco-section">
 		<div class="container">
 <!-- ------------------------------------------- 소제목 시작 ----------------------------------------- -->
-<section class="ftco-section" style="padding: 2em;">
+<section class="ftco-section">
 	<div class="container">
 		<div class="row justify-content-center mb-3">
      		<div class="col-md-7 text-center heading-section ftco-animate">
@@ -280,228 +166,60 @@
        		
 <!-- ---------------------- 본문 -------------------------------- -->
 <!------------------ 대여일시, 반납일시--------------------------->
-				<form action="./ReservationAction.bo" class="p-2 contact-form"
-					method="post" name="form" onsubmit="return join();">
-			<table border="1px solid black" style="text-align: center;">
-				<tr> 
-					<td><h4>📆 언제 필요하세요?</h4></td>
-					<td> >> </td>
-					<td><h4>🧭 어디에서 이용하세요?</h4></td>
-					<td> >> </td>
-					<td><h4>🚘 어떤 차량을 원하세요?</h4></td>
-				</tr>
-					<tr>
-						<td style="width: 30%;">
-							<!-- <div class="row d-flex" style="float: left; border: 1px solid black; width: 30%;"> -->
-							<!-- 	<div class="col-md-10 "> -->
-							<div class="form-group" style="width: 100%; padding-bottom: 70px">
-<!-- 								<p class="d-flex justify-content-center mt-3 mb-0 d-block"> -->
-								<p class="d-flex">
-									<span style="width: 30%; padding-top: 0.8em;">대여일</span> 
-									<input type="date" class="form-control" placeholder="2000. 01. 01" name="date">
-								</p>
-							</div>
-						</td>
-						<td></td>
+<form action="./ReservationAction.bo" class="p-2 contact-form" method="post" name="form" onsubmit="return join();">
+<div class="row d-flex justify-content-center">
+	<div class="col-md-7 ">
+		<div class="form-group">
+			<h2> 📆 언제 필요하세요?</h2>
+			<p class="d-flex justify-content-center mt-3 mb-0 d-block">
+				<span style="width: 20%;">대여일시</span>
+				<input type="date" class="form-control" placeholder="2000. 01. 01" name="date">
+			</p>
+		</div>
+	</div>
+</div>
 
-						<!------------------ 위치 선택 --------------------------->
-						<td style="width: 30%;">
-							<div class="form-group" style="width: 100%;">
+<!------------------ 위치 선택 --------------------------->          
+<div class="row d-flex justify-content-center">
+	<div class="col-md-7">
+		<div class="form-group">
+			<h2> 🧭 어디에서 이용하세요?</h2>
+	    	<p class="d-flex justify-content-center mt-3 mb-0 d-block">
+	    	<div id="map" style="width:625px;height:400px;"></div>
+			<input type="text" class="form-control" placeholder="City, Station, etc" name="location">
+	        </p>
+		</div>
+	</div>
+</div>
 
-								<p class="d-flex justify-content-center mt-3 mb-0 d-block">
-
-									<!-- 아코디언 여기부터 -->
-								<div class="accordionContainer" style="padding-top: 20px;">
-
-									<button class="accordion">기장점</button>
-									<div class="panel">
-										<p>
-											부산 기장군 기장읍 당사로6길 5 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp1()">
-										</p>
-									</div>
-
-									<button class="accordion">중구점</button>
-									<div class="panel">
-										<p>
-											부산 중구 중앙대로116번길 13 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp2()">
-										</p>
-									</div>
-
-									<button class="accordion">서구점</button>
-									<div class="panel">
-										<p>
-											부산 서구 천마로92번길 5 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp3()">
-										</p>
-									</div>
-
-									<button class="accordion">동구점</button>
-									<div class="panel">
-										<p>
-											부산 범일로65번길 8 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp4()">
-										</p>
-									</div>
-
-									<button class="accordion">영도구점</button>
-									<div class="panel">
-										<p>
-											부산 영도구 태종로 446-4 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp5()">
-										</p>
-									</div>
-
-									<button class="accordion">부산진구점</button>
-									<div class="panel">
-										<p>
-											부산 부산진구 새싹로29번길 33 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp6()">
-										</p>
-									</div>
-
-									<button class="accordion">동래구점</button>
-									<div class="panel">
-										<p>
-											부산 동래구 충렬대로237번길 12 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp7()">
-										</p>
-									</div>
-
-									<button class="accordion">남구점</button>
-									<div class="panel">
-										<p>
-											부산 남구 수영로172번길 6 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp8()">
-										</p>
-									</div>
-
-									<button class="accordion">북구점</button>
-									<div class="panel">
-										<p>
-											부산 북구 화명신도시로 190 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp9()">
-										</p>
-									</div>
-
-									<button class="accordion">해운대구점</button>
-									<div class="panel">
-										<p>
-											부산 해운대구 달맞이길62번길 13 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp10()">
-										</p>
-									</div>
-
-									<button class="accordion">사하구점</button>
-									<div class="panel">
-										<p>
-											부산 사하구 다대로5번길 8 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp11()">
-										</p>
-									</div>
-
-									<button class="accordion">금정구점</button>
-									<div class="panel">
-										<p>
-											부산 금정구 기찰로102번길 8 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp12()">
-										</p>
-									</div>
-
-									<button class="accordion">강서구점</button>
-									<div class="panel">
-										<p>
-											부산 강서구 공항로 1225 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp13()">
-										</p>
-									</div>
-
-									<button class="accordion">연제구점</button>
-									<div class="panel">
-										<p>
-											부산 연제구 연산동 2302 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp14()">
-										</p>
-									</div>
-
-									<button class="accordion">수영구점</button>
-									<div class="panel">
-										<p>
-											부산 수영구 남천동로9번길 50 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp15()">
-										</p>
-									</div>
-
-									<button class="accordion">사상구점</button>
-									<div class="panel">
-										<p>
-											부산 사상구 가야대로 190 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp16()">
-										</p>
-									</div>
-								</div>
-
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-  });
-}
-</script>
-								<!-- 아코디언 여기까지 -->
-
-								<!-- 	    	<div id="map" style="width:625px;height:400px;"></div> -->
-<!-- 								<input type="text" class="form-control" -->
-<!-- 									placeholder="City, Station, etc" name="location"> -->
-								</p>
-							</div>
-						</td>
-						<td></td>
-
-						<!------------------ 차량 종류 선택 --------------------------->
-						<td style="width: 30%;">
-							<div class="form-group"  style="width: 90%; padding-bottom: 30%;">
-								
-								<p class="d-flex justify-content-center mt-3 mb-0 d-block">
-									<span>차량 선택</span> 
-									<select name="questType" id="select1" onchange="chnQnaType(this.value)">
-										<option value="small">소형</option>
-										<option value="medium">중형</option>
-										<option value="large">대형</option>
-									</select> 
-									<select id="schQnaType" name="schQnaType" style="width: 120px; display: none;">
-									</select>
-								</p>
-							</div>
-						</td>
-					</tr>
-				<tr>
-					<td colspan="5">
-						<div class="form-group text-center" style="padding-top: 3em;">
-							<input type="submit" value="예약하기"
-								class="btn btn-primary py-3 px-5">
-						</div>
-					</td>
-				</tr>
-			</table>
-				</form>
-
-
-			<!-- 소제목+본문 섹션 끝 -->
+<!------------------ 차량 종류 선택 ---------------------------> 
+<div class="row d-flex justify-content-center">
+	<div class="col-md-7 ">
+		<div class="form-group">
+			<h2> 🚘 어떤 차량을 원하세요?</h2>
+			<p class="d-flex justify-content-center mt-3 mb-0 d-block">
+				<span style="width: 20%;">차량 선택</span> 
+				<select name="questType" id="select1" onchange="chnQnaType(this.value)">
+					<option value="small">소형</option>
+					<option value="medium">중형</option>
+					<option value="large">대형</option>
+				</select>
+				<select id="schQnaType" name="schQnaType" style="width:120px; display:none;">
+				</select>
+			</p>
+		</div>
+		<div class="form-group text-center">
+			<input type="submit" value="예약하기" class="btn btn-primary py-3 px-5">
+		</div>
+	</div>
+</div> 
+</form>
+    
+          
+<!-- 소제목+본문 섹션 끝 -->
        </div>
     </section>
 <!-- ------------------------------------------- 카카오 지도 시작 ------------------------------------------- -->
-<!-- 
 <script type="text/javascript">
 	var container = document.getElementById('map');
 	var options = {
@@ -509,11 +227,10 @@ for (i = 0; i < acc.length; i++) {
 		level: 3
 	};
 	var map = new kakao.maps.Map(container, options);
-</script> 
--->
+</script>
 <!-- ------------------------------------------- 카카오 지도 끝 ------------------------------------------- -->
 <!-- ---------------------- 푸터 -------------------------------- -->
-    <footer class="ftco-footer ftco-bg-dark ftco-section"  style="clear: left;">
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md">

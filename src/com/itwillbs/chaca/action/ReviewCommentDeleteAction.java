@@ -23,10 +23,10 @@ public class ReviewCommentDeleteAction implements Action {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		
 		out.print("<script>");
 		out.print("alert('댓글이 삭제되었습니다..');");
 		out.print("location.href='./ReviewContent.bo?bno='"+bno+"';");
+		out.print("history.back();");
 		out.print("</script>");
 		out.close();
 		return null;

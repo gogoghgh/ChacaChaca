@@ -354,7 +354,7 @@ public class ChacaFrontController extends HttpServlet{
 				
 				
 				forward = new ActionForward();
-				forward.setPath("./reviewWriteForm.jsp");
+				forward.setPath("./review/reviewWriteForm.jsp");
 				forward.setRedirect(false); // forward 방식으로 이동
 
 			}// else if ---  /ReviewFileWrite.bo	
@@ -426,6 +426,18 @@ public class ChacaFrontController extends HttpServlet{
 				}
 				
 			} // CommentUpdate.bo 끝
+			
+			else if (command.equals("/CommentDelete.bo")){
+				System.out.println("(from ChacaFrontController_doProcess) C: /CommentDelete.bo 호출");
+				
+				action = new ReviewCommentDeleteAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			} // CommentDelete.bo 끝
 			
 			// 리뷰 구간 끝---------------------------------------------------------
 			
@@ -635,7 +647,7 @@ public class ChacaFrontController extends HttpServlet{
 					// false - forward() 방식으로 이동	
 					System.out.println("C : false-" + forward.getPath() + "이동, forward() 방식");
 					RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
-					dis.forward(request, response);					
+					dis.forward(request, response);
 				}
 			}			
 			System.out.println("3. 가상주소 이동 - 끝");

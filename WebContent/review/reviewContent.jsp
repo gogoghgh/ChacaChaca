@@ -63,7 +63,7 @@
 <script type="text/javascript">
  	function openPopUp(bno) {
 //  		alert(bno);
- 		window.open("reviewPwCheck.jsp?bno="+bno, "pwCheckForm", "width=600, height=250, top=150, left=200");
+ 		window.open("./review/reviewPwCheck.jsp?bno="+bno, "pwCheckForm", "width=500, height=400, top=150, left=200");
  		
  	}
 </script>
@@ -71,7 +71,65 @@
 
 <!-- 팝업창 열기 -->
     
-    <!-- 메뉴바 css  -->
+<!--    버튼 css -->
+<style type="text/css">
+.Bbtn {
+  margin-top:100px;
+  border: 2.5px solid ;
+  border-radius: 6px;
+  background-color: white;
+  color: black;
+  padding: 8px 18px;
+  cursor: pointer;
+}
+
+.btn1 {
+
+ background-color: #024a30;
+  color: white;
+}
+
+.btn1:hover {
+background-color: white;
+    border-color: #024a30;
+  color: #024a30;
+}
+
+.btn2 {
+ background: #038454;
+  color: white;
+}
+
+.btn2:hover {
+background-color: white;
+ border-color: #038454;
+  color: #038454;
+}
+
+.btn3 {
+ background: #04aa6d;
+  color: white;
+}
+
+.btn3:hover {
+background-color: white;
+  border-color: #04aa6d;
+  color: #04aa6d;
+}
+
+.btn4 {
+  background: #05d086;
+  color: white;
+}
+
+.btn4:hover {
+background-color: white;
+    border-color: #05d086;
+  color: #05d086;
+}
+
+</style>
+<!--    버튼 css -->
 
 
 <!-- jquery & ajax  시작 -->
@@ -120,7 +178,7 @@
 	          <li class="nav-item"><a href="info.html" class="nav-link">이용안내</a></li>
 	          <li class="nav-item"><a href="services.html" class="nav-link">요금안내</a></li>
 	          <li class="nav-item"><a href="pricing.html" class="nav-link">예약하기</a></li>
-	          <li class="nav-item active"><a href="review.jsp" class="nav-link">고객센터</a></li>
+	          <li class="nav-item active"><a href="./ReviewList.bo" class="nav-link">고객센터</a></li>
 	          <li class="nav-item"><a href="joinUpdate.html" class="nav-link">마이페이지</a></li>
 	        </ul>
 	      </div>
@@ -158,7 +216,7 @@
 			<!--좌측 메뉴바  -->
 			<nav id="nav">
 				<ul>
-					<li><a href="./BoardList.bo">이용후기</a></li>
+					<li><a href="./ReviewList.bo">이용후기</a></li>
 					<li><a href="./ContentList.bo">문의하기</a></li>
 				</ul>
 			</nav>
@@ -225,23 +283,23 @@
 			                </td>
 			                </tr>
 			                <tr><td colspan="4" style="padding: 50px;"><p>${dto.content }</p></td></tr>
-			                </table>
+							</table>
 							<!--   첨부파일 코드 -->
 							<c:if test="${dto.file ne null }">
-							<img src="./upload/${dto.file }" width="80%" height="80%">			                
-			                <p><a href="./upload/${dto.file }" download>${dto.file }</a></p>
+								<img src="./upload/${dto.file }" width="80%" height="80%">			                
+				                <p><a href="./upload/${dto.file }" download>${dto.file }</a></p>
 			                </c:if>
 			                
 <!-- 			                <p><div class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p> -->
 			              	<br>
 			              	<!-- /////////로그인아이디가 글쓴이 아이디와 일치할 때 글수정/글삭제 가능///// -->
 <%-- 			              	<c:if test="${sessionScope.loginID eq dto.name }"> --%>
-			              	<input type="button" value="수정" onclick="location.href='./ReviewFileUpdate.bo?bno=${dto.bno}&pageNum=${pageNum}';"> 
-							<input type="button" value="삭제" onclick="openPopUp(${dto.bno})">
+			              	<input type="button" class="Bbtn btn1" value="수 정" onclick="location.href='./ReviewFileUpdate.bo?bno=${dto.bno}&pageNum=${pageNum}';"> 
+							<input type="button" class="Bbtn btn2" value="삭 제" onclick="openPopUp(${dto.bno})" >
 <%-- 			              	</c:if> --%>
 			              	<!-- /////////로그인아이디가 글쓴이 아이디와 일치할 때 글수정/글삭제 가능///// -->
-							<input type="button" value="답글">
-							<input type="button" value="목록" onclick="location.href='./ReviewList.bo?pageNum=${pageNum}';">
+<!-- 							<input type="button" class="btn btn3" value="답글"> -->
+							<input type="button" class="Bbtn btn4" value="목 록" onclick="location.href='./ReviewList.bo?pageNum=${pageNum}';">
 			              </div>
 			            </div>
 			          </div>
@@ -270,9 +328,10 @@
 									<p>${cdto.content }</p>
 									<!-- <p> <a href="#" class="reply">Reply</a> </p> -->
 								</div> 
-								<input type="button" value="수정" class="cmt-update"
-											<%-- onclick="location.href='./CommentUpdate.bo?c_bno=${cdto.c_bno}';" --%>>
-								<input type="button" value="삭제" onclick="location.href='#';">
+								<%-- <input type="button" value="수정" class="cmt-update"
+										onclick="location.href='./CommentUpdate.bo?c_bno=${cdto.c_bno}';" > 
+										--%>
+								<input type="button" value="삭제" onclick="location.href='./CommentDelete.bo?c_bno=${cdto.c_bno}&bno=${dto.bno }';">
 							</li>
 						</c:forEach>
 					</ul>

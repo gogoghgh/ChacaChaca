@@ -28,7 +28,7 @@ public class ReviewDeleteAction implements Action {
 		request.setAttribute("password", password);
 
 		ActionForward forward = new ActionForward();
-		forward.setPath("./reviewDeleteForm.jsp");
+		forward.setPath("./review/reviewDeleteForm.jsp");
 		forward.setRedirect(false); // forward 방식으로 이동
 
 		return forward;

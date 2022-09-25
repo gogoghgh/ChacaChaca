@@ -54,7 +54,7 @@ public class ReviewDeleteProAction implements Action {
 		out.print("<script>");
 		out.print("alert('게시글 삭제 완🥰');");
 //		out.print("location.href='./BoardList.bo?pageNum=" + pageNum + "';"); 
-		out.print("location.href='./reviewPwCheck.jsp?pageNum=" + pageNum + "';"); 
+		out.print("location.href='./review/reviewPwCheck.jsp?pageNum=" + pageNum + "';"); 
 		out.print("</script>");
 		out.close();
 		return null;

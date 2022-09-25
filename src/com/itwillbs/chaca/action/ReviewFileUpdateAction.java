@@ -26,7 +26,7 @@ public class ReviewFileUpdateAction implements Action{
 		request.setAttribute("pageNum", pageNum);
 		
 		ActionForward forward=new ActionForward();
-		forward.setPath("./reviewUpdateForm.jsp");
+		forward.setPath("./review/reviewUpdateForm.jsp");
 		forward.setRedirect(false);
 		return forward;
 	}

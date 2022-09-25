@@ -54,7 +54,7 @@
 				<li class="nav-item"><a href="./Information.bo" class="nav-link">이용안내</a></li>
 				<li class="nav-item"><a href="./Service.bo" class="nav-link">요금안내</a></li>
 				<li class="nav-item"><a href="./Reservation.bo" class="nav-link">예약하기</a></li>
-				<li class="nav-item"><a href="./BoardWrite.bo" class="nav-link">고객센터</a></li>
+				<li class="nav-item"><a href="./ReviewList.bo" class="nav-link">고객센터</a></li>
 				<li class="nav-item"><a href="./UserInfo.bo" class="nav-link">마이페이지</a></li>
 				<!-- <li class="nav-item"><a href="joinUpdate.jsp" class="nav-link"><img src="images/mypage.png" width="20%" height="20%"></a></li> -->
 			</ul>

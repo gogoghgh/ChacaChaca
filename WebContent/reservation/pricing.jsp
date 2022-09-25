@@ -23,7 +23,8 @@
 <!-- 지도 아코디언 스타일 시작 ---------------------------------- -->
 <style type="text/css">
 .accordion {
-  background-color: #94B49F;
+/*   background-color: #94B49F; */
+  background-color: #b1cebb;
   color: white;
   cursor: pointer;
   padding: 10px;
@@ -82,10 +83,10 @@
 	vertical-align:middle;
 	font-size:13px;
 	color:black;
-	width:40px;
+	width:50px;
 	height:15px;
 	padding:8px;
-	padding-right: 40px;
+/* 	padding-right: 40px; */
 	padding-bottom:20px;
 	background-color: #cccccc;
 	border-color: white;
@@ -98,6 +99,11 @@
 
 #mapbutton:hover {
 }
+
+#dateID {
+	width: 60% !important;
+}
+
 </style>
 <!-- 버튼 -->
 
@@ -131,8 +137,7 @@
         overflow: auto;
       }
     </style>
-
-<!-- 대여 지점 목록 스크롤 -->
+<!-- 대여 지점 목록 스크롤 끝-->
     
 <script type="text/javascript" src="jquery-3.6.0.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dfca5b3863564f021175c274a0079e2a"></script>
@@ -175,8 +180,42 @@
 			$('#select1').val(type);
 			$('#schQnaType').val(select);
 		}
+		
+		
+		// 여기부터 차 사진 뜨게,, 도전 중
+		$('#schQnaType').change(function(){
+			alert($(this).val());
+//	 		alert($(this).children("option:selected").text());
+			
+			var selectedCarVal = $(this).val();
+			console.log(selectedCarVal);
+			alert("selectedCarVal: " + selectedCarVal);
+			
+			$.ajax({
+				url:'pricingCarImg.jsp',
+				data:{'selectedCarVal':selectedCarVal},
+				success:function(rData){
+					alert("갔다 왔슴다 성공");
+					console.log("success rData: " + rData);
+// 					$('#selectedCarImgDiv').html(rData);
+				},
+				error: function(request, status, error) {
+			        console.log("code: " + request.status);
+			        console.log("message: " + request.responseText);
+			        console.log("error: " + error);
+				}
+			});// ajax
+			
+		});// change 
+			
+			// 여까지----------------------------------
+		
+		
+		
+		
 	}
-
+	
+	
 	function join() {
 		var date = document.form.date.value;
 		var location = document.form.location.value;
@@ -184,6 +223,7 @@
 		
 		if(date == "") {
 			alert("대여일을 선택해주세요.");
+			document.getElementById('dateID').focus();
 			return false;
 		}
 		
@@ -194,9 +234,35 @@
 		
 		if(car_name == "") {
 			alert("대여를 원하는 차량을 선택해주세요.");
+// 			document.getElementById('carNameID').selectedIndex=0; 안되네^^;;
+// 			document.getElementById('carNameID').focus();
 			return false;
 		}
 	}
+	
+	
+	
+	$(document).ready(
+			
+		// 지점 선택 버튼 누르면 -> input hidden name location 에 value값 들어가게..
+		function locationValue(){
+			
+			// 선택 버튼을 클릭하면
+			$('.choose_btn').click(function(){
+				// 클릭한 버튼 값(해당 지점)을 변수에 담고
+				var choosenLocation = this.value
+// 				alert(choosenLocation);
+				
+				// 폼 태그 location에 value값에 대입
+				document.form.location.value = choosenLocation;
+				
+				alert(choosenLocation + " 지점 선택 완료🥰");
+				
+			});//click
+			
+		}// function locationValue
+		
+	);// jquery ready
 	
 </script>
 
@@ -291,6 +357,7 @@
 					<td><h4>🚘 어떤 차량을 원하세요?</h4></td>
 				</tr>
 					<tr>
+						<!------------------ 대여일 선택 --------------------------->
 						<td style="width: 30%;">
 							<!-- <div class="row d-flex" style="float: left; border: 1px solid black; width: 30%;"> -->
 							<!-- 	<div class="col-md-10 "> -->
@@ -298,7 +365,7 @@
 <!-- 								<p class="d-flex justify-content-center mt-3 mb-0 d-block"> -->
 								<p class="d-flex">
 									<span style="width: 30%; padding-top: 0.8em;">대여일</span> 
-									<input type="date" class="form-control" placeholder="2000. 01. 01" name="date">
+									<input type="date" class="form-control" id="dateID" placeholder="2000. 01. 01" name="date">
 								</p>
 							</div>
 						</td>
@@ -316,128 +383,161 @@
 									<button class="accordion">기장점</button>
 									<div class="panel">
 										<p>
-											부산 기장군 기장읍 당사로6길 5 &nbsp;<input type="button" id="mapbutton"
-												value="약도" onclick="openPopUp1()">
-										</p>
+											<br>부산 기장군 기장읍 당사로6길 5 <br>
+											<input type="button" id="mapbutton"
+												value="약 도" onclick="openPopUp1()">
+											<button type="button" id="mapbutton" class="choose_btn" value="기장군" onclick="locationValue()" >선 택</button>
+										</p> 
+											<!-- button type 속성 기본값이 submit이라서~~ 걍 제출됐구나~!!!! -->
 									</div>
 
 									<button class="accordion">중구점</button>
 									<div class="panel">
 										<p>
-											부산 중구 중앙대로116번길 13 &nbsp;<input type="button" id="mapbutton"
+											<br> 부산 중구 중앙대로116번길 13 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp2()">
+											<button type="button" id="mapbutton" class="choose_btn" value="중구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">서구점</button>
 									<div class="panel">
-										<p>
-											부산 서구 천마로92번길 5 &nbsp;<input type="button" id="mapbutton"
+										<p> 
+											<br> 부산 서구 천마로92번길 5 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp3()">
+											<button type="button" id="mapbutton" class="choose_btn" value="서구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">동구점</button>
 									<div class="panel">
 										<p>
-											부산 범일로65번길 8 &nbsp;<input type="button" id="mapbutton"
+											<br> 부산 범일로65번길 8 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp4()">
+											<button type="button" id="mapbutton" class="choose_btn" value="동구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">영도구점</button>
 									<div class="panel">
 										<p>
-											부산 영도구 태종로 446-4 &nbsp;<input type="button" id="mapbutton"
+											<br> 부산 영도구 태종로 446-4 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp5()">
+											<button type="button" id="mapbutton" class="choose_btn" value="영도구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">부산진구점</button>
 									<div class="panel">
 										<p>
-											부산 부산진구 새싹로29번길 33 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 부산진구 새싹로29번길 33 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp6()">
+											<button type="button" id="mapbutton" class="choose_btn" value="부산진구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">동래구점</button>
 									<div class="panel">
 										<p>
-											부산 동래구 충렬대로237번길 12 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 동래구 충렬대로237번길 12 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp7()">
+											<button type="button" id="mapbutton" class="choose_btn" value="동래구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">남구점</button>
 									<div class="panel">
 										<p>
-											부산 남구 수영로172번길 6 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 남구 수영로172번길 6 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp8()">
+											<button type="button" id="mapbutton" class="choose_btn" value="남구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">북구점</button>
 									<div class="panel">
 										<p>
-											부산 북구 화명신도시로 190 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 북구 화명신도시로 190 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp9()">
+											<button type="button" id="mapbutton" class="choose_btn" value="북구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">해운대구점</button>
 									<div class="panel">
 										<p>
-											부산 해운대구 달맞이길62번길 13 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 해운대구 달맞이길62번길 13 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp10()">
+											<button type="button" id="mapbutton" class="choose_btn" value="해운대구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">사하구점</button>
 									<div class="panel">
 										<p>
-											부산 사하구 다대로5번길 8 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 사하구 다대로5번길 8 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp11()">
+											<button type="button" id="mapbutton" class="choose_btn" value="사하구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">금정구점</button>
 									<div class="panel">
 										<p>
-											부산 금정구 기찰로102번길 8 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 금정구 기찰로102번길 8 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp12()">
+											<button type="button" id="mapbutton" class="choose_btn" value="금정구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">강서구점</button>
 									<div class="panel">
 										<p>
-											부산 강서구 공항로 1225 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 강서구 공항로 1225 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp13()">
+											<button type="button" id="mapbutton" class="choose_btn" value="강서구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">연제구점</button>
 									<div class="panel">
 										<p>
-											부산 연제구 연산동 2302 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 연제구 연산동 2302 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp14()">
+											<button type="button" id="mapbutton" class="choose_btn" value="연제구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">수영구점</button>
 									<div class="panel">
 										<p>
-											부산 수영구 남천동로9번길 50 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 수영구 남천동로9번길 50 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp15()">
+											<button type="button" id="mapbutton" class="choose_btn" value="수영구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 
 									<button class="accordion">사상구점</button>
 									<div class="panel">
 										<p>
-											부산 사상구 가야대로 190 &nbsp;<input type="button" id="mapbutton"
+											<br>부산 사상구 가야대로 190 <br>
+											<input type="button" id="mapbutton"
 												value="약도" onclick="openPopUp16()">
+											<button type="button" id="mapbutton" class="choose_btn" value="사상구" onclick="locationValue()" >선 택</button>
 										</p>
 									</div>
 								</div>
@@ -460,9 +560,9 @@ for (i = 0; i < acc.length; i++) {
 </script>
 								<!-- 아코디언 여기까지 -->
 
-								<!-- 	    	<div id="map" style="width:625px;height:400px;"></div> -->
-<!-- 								<input type="text" class="form-control" -->
-<!-- 									placeholder="City, Station, etc" name="location"> -->
+								<!-- <div id="map" style="width:625px;height:400px;"></div> -->
+								<input type="hidden" class="form-control"
+									name="location" value="">
 								</p>
 							</div>
 						</td>
@@ -472,15 +572,19 @@ for (i = 0; i < acc.length; i++) {
 						<td style="width: 30%;">
 							<div class="form-group"  style="width: 90%; padding-bottom: 30%;">
 								
-								<p class="d-flex justify-content-center mt-3 mb-0 d-block">
-									<span>차량 선택</span> 
-									<select name="questType" id="select1" onchange="chnQnaType(this.value)">
-										<option value="small">소형</option>
+								<!-- <span>차량 선택</span> <br> -->
+								<p class="d-flex justify-content-center mt-3 mb-0 d-block"
+									style="padding-left: 2em;">
+									<select name="questType" id="select1" onchange="chnQnaType(this.value)" 
+											style="width: 40%;" class="form-control">
+										<option value="small" id="carNameID">소형</option>
 										<option value="medium">중형</option>
 										<option value="large">대형</option>
 									</select> 
-									<select id="schQnaType" name="schQnaType" style="width: 120px; display: none;">
+									<select id="schQnaType" name="schQnaType" class="form-control" 
+											style="width: 90%; display: none;">
 									</select>
+									<div id="selectedCarImgDiv" style="border: 1px solid black;"></div>
 								</p>
 							</div>
 						</td>

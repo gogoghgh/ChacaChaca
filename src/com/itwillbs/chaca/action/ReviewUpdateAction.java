@@ -32,7 +32,7 @@ public class ReviewUpdateAction implements Action {
 
 		// 5. view 페이지로 이동 (통행권에 정보 저장)
 		ActionForward forward = new ActionForward();
-		forward.setPath("./reviewUpdateForm.jsp");
+		forward.setPath("./review/reviewUpdateForm.jsp");
 		forward.setRedirect(false); // forward 방식으로 이동
 
 		return forward;

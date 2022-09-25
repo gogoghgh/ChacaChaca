@@ -127,7 +127,8 @@
 <button class="accordion">기장점</button>
 <div class="panel">
   <p>부산 기장군 기장읍 당사로6길 5
-  &nbsp;<input type="button" id="mapbutton" value="약도" onclick="openPopUp1()"></p>
+  &nbsp;<input type="button" id="mapbutton" value="약도" onclick="openPopUp1()">
+  		<input type="button" id="choose_btn" value="선택" >  </p>
 </div>
 
 <button class="accordion">중구점</button>

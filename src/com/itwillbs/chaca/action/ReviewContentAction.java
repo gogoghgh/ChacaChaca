@@ -44,7 +44,7 @@ public class ReviewContentAction implements Action{
 		
 		// 정보 출력할 view 페이지로 이동~ 통행권 만들고
 		ActionForward forward = new ActionForward();
-		forward.setPath("./reviewContent.jsp");
+		forward.setPath("./review/reviewContent.jsp");
 		forward.setRedirect(false);
 		
 		return forward;
